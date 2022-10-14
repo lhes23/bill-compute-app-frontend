@@ -21,8 +21,10 @@ const Form = () => {
 
   const [houseReadings, setHouseReadings] = useState<Reading[]>([])
 
-  const [previous, setPrevious] = useState<number>(0)
-  const [present, setPresent] = useState<number>(0)
+  const [houseAPrevious, setHouseAPrevious] = useState<number>(0)
+  const [houseAPresent, setHouseAPresent] = useState<number>(0)
+  const [houseBPrevious, setHouseBPrevious] = useState<number>(0)
+  const [houseBPresent, setHouseBPresent] = useState<number>(0)
 
   const totalConsumption = totalReading.present - totalReading.previous
   const pesoper = Math.round(totalReading.bill / totalConsumption)
@@ -30,19 +32,27 @@ const Form = () => {
   const formHandler = async (e: FormEvent) => {
     e.preventDefault()
 
-    const consumption = present - previous
-    const bill = consumption * pesoper
+    const houseAConsumption = houseAPresent - houseAPrevious
+    const houseABill = houseAConsumption * pesoper
+    const houseBConsumption = houseBPresent - houseBPrevious
+    const houseBBill = houseBConsumption * pesoper
 
     setHouseReadings([
       {
         name: "House A",
-        previous,
-        present,
-        consumption,
-        bill
+        previous: houseAPrevious,
+        present: houseAPresent,
+        consumption: houseAConsumption,
+        bill: houseABill
+      },
+      {
+        name: "House B",
+        previous: houseBPrevious,
+        present: houseBPresent,
+        consumption: houseBConsumption,
+        bill: houseBBill
       }
     ])
-    console.log({ totalReading, consumption, pesoper })
   }
 
   return (
@@ -131,10 +141,18 @@ const Form = () => {
           </div>
         </div>
         <HouseComponent
-          present={present}
-          previous={previous}
-          setPresent={setPresent}
-          setPrevious={setPrevious}
+          name="House A"
+          present={houseAPresent}
+          previous={houseAPrevious}
+          setPresent={setHouseAPresent}
+          setPrevious={setHouseAPrevious}
+        />
+        <HouseComponent
+          name="House B"
+          present={houseBPresent}
+          previous={houseBPrevious}
+          setPresent={setHouseBPresent}
+          setPrevious={setHouseBPrevious}
         />
 
         <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">

@@ -1,6 +1,7 @@
 import React from "react"
 
 interface IProps {
+  name: string
   present: number
   previous: number
   setPresent: React.Dispatch<React.SetStateAction<number>>
@@ -8,6 +9,7 @@ interface IProps {
 }
 
 const HouseComponent = ({
+  name,
   present,
   previous,
   setPresent,
@@ -17,7 +19,7 @@ const HouseComponent = ({
     <>
       <div className="flex flex-wrap -mx-3 mb-2">
         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-          <h2>House A</h2>
+          <h2>{name}</h2>
         </div>
         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
           <label
