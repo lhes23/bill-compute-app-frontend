@@ -1,17 +1,14 @@
 import React, { FormEvent, useState } from "react"
+import { IHouse, Reading } from "../App"
 import HouseComponent from "./HouseComponent"
-import ResultTable from "./ResultTable"
 import TotalReading from "./TotalReading"
 
-export interface Reading {
-  name: string
-  previous: number
-  present: number
-  consumption: number
-  bill: number
+interface IProps {
+  setHouseReadings: React.Dispatch<React.SetStateAction<Reading[]>>
+  setPesoPer: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Form = () => {
+const Form = ({ setHouseReadings, setPesoPer }: IProps) => {
   const [totalReading, setTotalReading] = useState<Reading>({
     name: "main",
     previous: 0,
@@ -20,12 +17,26 @@ const Form = () => {
     bill: 0
   })
 
-  const [houseReadings, setHouseReadings] = useState<Reading[]>([])
-
-  const [houseAPrevious, setHouseAPrevious] = useState<number>(0)
-  const [houseAPresent, setHouseAPresent] = useState<number>(0)
-  const [houseBPrevious, setHouseBPrevious] = useState<number>(0)
-  const [houseBPresent, setHouseBPresent] = useState<number>(0)
+  const [houseA, setHouseA] = useState<IHouse>({
+    name: "House A",
+    previous: 0,
+    present: 0
+  })
+  const [houseB, setHouseB] = useState<IHouse>({
+    name: "House B",
+    previous: 0,
+    present: 0
+  })
+  const [houseC, setHouseC] = useState<IHouse>({
+    name: "House C",
+    previous: 0,
+    present: 0
+  })
+  const [houseD, setHouseD] = useState<IHouse>({
+    name: "House D",
+    previous: 0,
+    present: 0
+  })
 
   const totalConsumption = totalReading.present - totalReading.previous
   const pesoper = Math.round(totalReading.bill / totalConsumption)
@@ -33,25 +44,49 @@ const Form = () => {
   const formHandler = async (e: FormEvent) => {
     e.preventDefault()
 
-    const houseAConsumption = houseAPresent - houseAPrevious
-    const houseABill = houseAConsumption * pesoper
-    const houseBConsumption = houseBPresent - houseBPrevious
-    const houseBBill = houseBConsumption * pesoper
+    // const houseAConsumption = houseAPresent - houseAPrevious
+    // const houseABill = houseAConsumption * pesoper
+    // const houseBConsumption = houseBPresent - houseBPrevious
+    // const houseBBill = houseBConsumption * pesoper
 
+    const houseAConsumption = houseA.present - houseA.previous
+    const houseABill = houseAConsumption * pesoper
+    const houseBConsumption = houseB.present - houseB.previous
+    const houseBBill = houseBConsumption * pesoper
+    const houseCConsumption = houseC.present - houseC.previous
+    const houseCBill = houseCConsumption * pesoper
+    const houseDConsumption = houseD.present - houseD.previous
+    const houseDBill = houseDConsumption * pesoper
+
+    setPesoPer(pesoper)
     setHouseReadings([
       {
-        name: "House A",
-        previous: houseAPrevious,
-        present: houseAPresent,
+        name: houseA.name,
+        previous: houseA.previous,
+        present: houseA.present,
         consumption: houseAConsumption,
         bill: houseABill
       },
       {
-        name: "House B",
-        previous: houseBPrevious,
-        present: houseBPresent,
+        name: houseB.name,
+        previous: houseB.previous,
+        present: houseB.present,
         consumption: houseBConsumption,
         bill: houseBBill
+      },
+      {
+        name: houseC.name,
+        previous: houseC.previous,
+        present: houseC.present,
+        consumption: houseCConsumption,
+        bill: houseCBill
+      },
+      {
+        name: houseD.name,
+        previous: houseD.previous,
+        present: houseD.present,
+        consumption: houseDConsumption,
+        bill: houseDBill
       }
     ])
   }
@@ -69,20 +104,11 @@ const Form = () => {
                 totalReading={totalReading}
                 setTotalReading={setTotalReading}
               />
-              <HouseComponent
-                name="House A"
-                present={houseAPresent}
-                previous={houseAPrevious}
-                setPresent={setHouseAPresent}
-                setPrevious={setHouseAPrevious}
-              />
-              <HouseComponent
-                name="House B"
-                present={houseBPresent}
-                previous={houseBPrevious}
-                setPresent={setHouseBPresent}
-                setPrevious={setHouseBPrevious}
-              />
+
+              <HouseComponent house={houseA} setHouse={setHouseA} />
+              <HouseComponent house={houseB} setHouse={setHouseB} />
+              <HouseComponent house={houseC} setHouse={setHouseC} />
+              <HouseComponent house={houseD} setHouse={setHouseD} />
 
               <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
                 <button
@@ -96,9 +122,6 @@ const Form = () => {
               </div>
             </form>
           </div>
-        </div>
-        <div className="flex justify-center">
-          <ResultTable houseReadings={houseReadings} pesoper={pesoper} />
         </div>
       </div>
 

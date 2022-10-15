@@ -1,5 +1,5 @@
 import React from "react"
-import { Reading } from "./Form"
+import { Reading } from "../App"
 
 const TotalReading = ({
   totalReading,
