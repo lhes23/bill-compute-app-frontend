@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from "react"
 import HouseComponent from "./HouseComponent"
 import ResultTable from "./ResultTable"
+import TotalReading from "./TotalReading"
 
 export interface Reading {
   name: string
@@ -58,11 +59,44 @@ const Form = () => {
   return (
     <>
       <div>
-        <h3 className="text-lg font-medium leading-6 text-gray-900">
-          Bill Compute App
-        </h3>
-        <div className="md:grid md:grid-cols-3 md:gap-6">
-          <div className="mt-5 md:col-span-2 md:mt-0"></div>
+        <div className="flex justify-center bg-gray-50">
+          <div className="mt-5 md:col-span-2 md:mt-0">
+            <form
+              className="w-full max-w-lg justify-center"
+              onSubmit={formHandler}
+            >
+              <TotalReading
+                totalReading={totalReading}
+                setTotalReading={setTotalReading}
+              />
+              <HouseComponent
+                name="House A"
+                present={houseAPresent}
+                previous={houseAPrevious}
+                setPresent={setHouseAPresent}
+                setPrevious={setHouseAPrevious}
+              />
+              <HouseComponent
+                name="House B"
+                present={houseBPresent}
+                previous={houseBPrevious}
+                setPresent={setHouseBPresent}
+                setPrevious={setHouseBPrevious}
+              />
+
+              <div className="px-4 py-3 text-right sm:px-6">
+                <button
+                  type="submit"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <ResultTable houseReadings={houseReadings} pesoper={pesoper} />
         </div>
       </div>
 
@@ -71,101 +105,6 @@ const Form = () => {
           <div className="border-t border-gray-200" />
         </div>
       </div>
-
-      <form className="w-full max-w-lg justify-center" onSubmit={formHandler}>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full md:w-1/2 px-3">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-last-name"
-            >
-              Previous Reading
-            </label>
-            <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-last-name"
-              type="number"
-              placeholder="Previous Reading"
-              value={totalReading.previous}
-              onChange={(e) =>
-                setTotalReading({
-                  ...totalReading,
-                  previous: Number(e.target.value)
-                })
-              }
-            />
-          </div>
-          <div className="w-full md:w-1/2 px-3">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-last-name"
-            >
-              Present Reading
-            </label>
-            <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-last-name"
-              type="number"
-              placeholder="Present Reading"
-              value={totalReading.present}
-              onChange={(e) =>
-                setTotalReading({
-                  ...totalReading,
-                  present: Number(e.target.value)
-                })
-              }
-            />
-          </div>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full px-3">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="total-bill"
-            >
-              Total Bill
-            </label>
-            <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="total-bill"
-              type="number"
-              placeholder="Total Bill"
-              value={totalReading.bill}
-              onChange={(e) =>
-                setTotalReading({
-                  ...totalReading,
-                  bill: Number(e.target.value)
-                })
-              }
-            />
-          </div>
-        </div>
-        <HouseComponent
-          name="House A"
-          present={houseAPresent}
-          previous={houseAPrevious}
-          setPresent={setHouseAPresent}
-          setPrevious={setHouseAPrevious}
-        />
-        <HouseComponent
-          name="House B"
-          present={houseBPresent}
-          previous={houseBPrevious}
-          setPresent={setHouseBPresent}
-          setPrevious={setHouseBPrevious}
-        />
-
-        <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-          <button
-            type="submit"
-            className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-
-      <ResultTable houseReadings={houseReadings} pesoper={pesoper} />
     </>
   )
 }
