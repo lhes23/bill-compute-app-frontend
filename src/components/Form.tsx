@@ -44,11 +44,6 @@ const Form = ({ setHouseReadings, setPesoPer }: IProps) => {
   const formHandler = async (e: FormEvent) => {
     e.preventDefault()
 
-    // const houseAConsumption = houseAPresent - houseAPrevious
-    // const houseABill = houseAConsumption * pesoper
-    // const houseBConsumption = houseBPresent - houseBPrevious
-    // const houseBBill = houseBConsumption * pesoper
-
     const houseAConsumption = houseA.present - houseA.previous
     const houseABill = houseAConsumption * pesoper
     const houseBConsumption = houseB.present - houseB.previous

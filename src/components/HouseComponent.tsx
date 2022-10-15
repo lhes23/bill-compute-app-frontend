@@ -2,24 +2,11 @@ import React from "react"
 import { IHouse } from "../App"
 
 interface IProps {
-  // name: string
-  // present: number
-  // previous: number
-  // setPresent: React.Dispatch<React.SetStateAction<number>>
-  // setPrevious: React.Dispatch<React.SetStateAction<number>>
   house: IHouse
   setHouse: React.Dispatch<React.SetStateAction<IHouse>>
 }
 
-const HouseComponent = ({
-  // name,
-  // present,
-  // previous,
-  // setPresent,
-  // setPrevious
-  house,
-  setHouse
-}: IProps) => {
+const HouseComponent = ({ house, setHouse }: IProps) => {
   return (
     <>
       <h2 className="p-2">{house.name}</h2>
@@ -31,9 +18,7 @@ const HouseComponent = ({
               id="previous_reading"
               className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder="Previous Reading"
-              // value={previous}
               value={house.previous}
-              // onChange={(e) => setPrevious(Number(e.target.value))}
               onChange={(e) =>
                 setHouse({ ...house, previous: Number(e.target.value) })
               }
@@ -54,7 +39,6 @@ const HouseComponent = ({
               className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder="Present Reading"
               value={house.present}
-              // onChange={(e) => setPresent(Number(e.target.value))}
               onChange={(e) =>
                 setHouse({ ...house, present: Number(e.target.value) })
               }

@@ -13,7 +13,7 @@ const ResultTable = ({
       {houseReadings.map((house) => (
         <div
           key={house.name}
-          className="flex items-center bg-white rounded-lg border shadow-md w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mx-4"
+          className="md:flex items-center bg-white rounded-lg border shadow-md w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mx-4"
         >
           <div className="flex flex-col justify-around p-4 leading-normal">
             <h2>Due Date:</h2>
