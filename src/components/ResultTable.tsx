@@ -10,7 +10,7 @@ const ResultTable = ({
 }) => {
   return (
     <>
-      <table className="table-auto">
+      {/* <table className="table-auto">
         <thead>
           <tr>
             <th className="px-4 py-2">House</th>
@@ -33,7 +33,54 @@ const ResultTable = ({
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
+
+      <div className="flex justify-center">
+        {houseReadings.map((house) => (
+          <>
+            <div className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mx-4">
+              <div className="flex flex-col justify-between p-4 leading-normal">
+                <h2>Due Date:</h2>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  {house.name}
+                </h5>
+                <div className="grid grid-cols-2">
+                  <div className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                    Previous Reading :{" "}
+                  </div>
+                  <div className="text-gray-700">{house.previous}</div>
+                </div>
+                <div className="grid grid-cols-2">
+                  <div className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                    Present Reading :{" "}
+                  </div>
+                  <div className="text-gray-700">{house.present}</div>
+                </div>
+                <div className="grid grid-cols-2">
+                  <div className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                    Consumption :{" "}
+                  </div>
+                  <div className="text-gray-700">{house.consumption}</div>
+                </div>
+                <div className="grid grid-cols-2">
+                  <div className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                    Peso per Consumption :{" "}
+                  </div>
+                  <div className="text-gray-700">₱ {pesoper}</div>
+                </div>
+                <div className="grid grid-cols-2">
+                  <div className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                    Total Bill :{" "}
+                  </div>
+                  <div className="text-gray-700 font-bold text-2xl">
+                    ₱ {house.bill}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
     </>
   )
 }
