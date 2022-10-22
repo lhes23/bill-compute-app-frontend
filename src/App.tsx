@@ -1,9 +1,8 @@
 import React, { useState } from "react"
-import TableDatePicker from "./components/TableDatePicker"
 import ResultTable from "./components/ResultTable"
-import SideBar from "./components/SideBar"
-import Main from "./components/Main"
-import Header from "./components/Header"
+import SideBar from "./layouts/SideBar"
+import Main from "./views/pages/Main"
+import Header from "./layouts/Header"
 
 function App() {
   const [showSidebar, setShowSidebar] = useState<boolean>(true)

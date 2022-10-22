@@ -1,5 +1,6 @@
 import React from "react"
 import { GiHamburgerMenu } from "react-icons/gi"
+import { Link } from "react-router-dom"
 
 const Header = ({
   showSidebar,
@@ -20,15 +21,17 @@ const Header = ({
             />
           </div>
 
-          {/* <!-- Search input --> */}
           <div className="flex justify-center flex-1 lg:mr-32">
             <div className="px-6 my-6">
-              <button className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+              <Link
+                to="/add-reading"
+                className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+              >
                 Add a Reading
                 <span className="ml-2" aria-hidden="true">
                   +
                 </span>
-              </button>
+              </Link>
             </div>
           </div>
           <ul className="flex items-center flex-shrink-0 space-x-6">

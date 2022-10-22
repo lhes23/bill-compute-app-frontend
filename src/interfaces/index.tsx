@@ -1,5 +1,6 @@
 export interface IHouseReading {
   name: string
+  tenant: string
   previous: number
   present: number
 }

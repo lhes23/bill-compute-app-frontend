@@ -1,8 +1,14 @@
 import React from "react"
 import { FaHouseUser } from "react-icons/fa"
-import { IHouse } from "./Dashboard"
 
-const Card = ({ house }: { house: IHouse }) => {
+interface IHouse {
+  id: string
+  name: string
+  isOccupied: boolean
+  color: string
+}
+
+const HouseCard = ({ house }: { house: IHouse }) => {
   return (
     <>
       <div className="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
@@ -24,4 +30,4 @@ const Card = ({ house }: { house: IHouse }) => {
   )
 }
 
-export default Card
+export default HouseCard
