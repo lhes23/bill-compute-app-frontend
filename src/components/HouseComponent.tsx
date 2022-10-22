@@ -1,9 +1,9 @@
 import React from "react"
-import { IHouse } from "../App"
+import { IHouseReading } from "../interfaces"
 
 interface IProps {
-  house: IHouse
-  setHouse: React.Dispatch<React.SetStateAction<IHouse>>
+  house: IHouseReading
+  setHouse: React.Dispatch<React.SetStateAction<IHouseReading>>
 }
 
 const HouseComponent = ({ house, setHouse }: IProps) => {

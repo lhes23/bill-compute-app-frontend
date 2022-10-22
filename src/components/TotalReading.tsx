@@ -1,5 +1,5 @@
 import React from "react"
-import { Reading } from "../App"
+import { Reading } from "../interfaces"
 
 const TotalReading = ({
   totalReading,
