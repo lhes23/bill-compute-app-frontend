@@ -20,7 +20,7 @@ const Dashboard = () => {
       {/* Cards */}
       <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4">
         {houses.map((house) => (
-          <HouseCard house={house} />
+          <HouseCard key={house.id} house={house} />
         ))}
       </div>
       <ConsumptionChart />
