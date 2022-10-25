@@ -9,14 +9,6 @@ interface IInitialState {
     consumption: number
     bill: number
   }[]
-  houseAValue: {
-    name: ""
-    tenant: ""
-    previous: 0
-    present: 0
-    consumption: 0
-    bill: 0
-  }
 }
 
 const initialState: IInitialState = {
@@ -29,28 +21,19 @@ const initialState: IInitialState = {
       consumption: 0,
       bill: 0
     }
-  ],
-  houseAValue: {
-    name: "",
-    tenant: "",
-    previous: 0,
-    present: 0,
-    consumption: 0,
-    bill: 0
-  }
+  ]
 }
 
 export const houseSlice = createSlice({
   name: "houses",
   initialState,
   reducers: {
-    setHouseAReadings: (state, action) => {
-      console.log({ action })
-      return (state.houseAValue = action.payload)
+    setHousesReadings: (state, action) => {
+      state.houses = action.payload
     }
   }
 })
 
-export const { setHouseAReadings } = houseSlice.actions
+export const { setHousesReadings } = houseSlice.actions
 
 export default houseSlice.reducer
