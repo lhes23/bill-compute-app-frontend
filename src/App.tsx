@@ -11,19 +11,6 @@ function App() {
 
   return (
     <>
-      {/* <div className="">
-        <TableDatePicker />
-        <div className="flex justify-center">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Bill Compute App
-          </h3>
-        </div>
-        <Form setHouseReadings={setHouseReadings} setPesoPer={setPesoPer} />
-        <div className="">
-          <ResultTable houseReadings={houseReadings} pesoper={pesoper} />
-        </div>
-      </div> */}
-
       <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
         <SideBar showSidebar={showSidebar} />
         <div className="flex flex-col flex-1 w-full">
