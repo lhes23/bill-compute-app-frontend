@@ -1,19 +1,16 @@
 import React from "react"
-import { Reading } from "../../../interfaces"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../store"
 
-const ResultTable = ({
-  houseReadings,
-  pesoper
-}: {
-  houseReadings: Reading[]
-  pesoper: number
-}) => {
+const ResultTable = () => {
+  const store = useSelector((state: RootState) => state.houses)
+
   return (
     <>
       <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Result
       </h2>
-      {houseReadings.map((house) => (
+      {store.houses.map((house) => (
         <div
           key={house.name}
           className="max-w-md mx-auto bg-gradient-to-tr from-slate-100 via-blue-100  to-slate-200 my-4 rounded-xl shadow-lg overflow-hidden md:max-w-2xl"
@@ -47,7 +44,7 @@ const ResultTable = ({
               </div>
               <div className={styles.divContainer}>
                 <div className={styles.divLabel}>Peso per Consumption : </div>
-                <div className={styles.divValue}>₱ {pesoper}</div>
+                <div className={styles.divValue}>₱ {store.pesoPer}</div>
               </div>
               <div className={styles.divContainer}>
                 <div className={styles.divLabel}>Total Bill : </div>

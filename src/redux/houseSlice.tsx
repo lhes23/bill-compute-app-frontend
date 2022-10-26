@@ -9,6 +9,7 @@ interface IInitialState {
     consumption: number
     bill: number
   }[]
+  pesoPer: number
 }
 
 const initialState: IInitialState = {
@@ -21,7 +22,8 @@ const initialState: IInitialState = {
       consumption: 0,
       bill: 0
     }
-  ]
+  ],
+  pesoPer: 0
 }
 
 export const houseSlice = createSlice({
@@ -30,10 +32,13 @@ export const houseSlice = createSlice({
   reducers: {
     setHousesReadings: (state, action) => {
       state.houses = action.payload
+    },
+    setPesoPer: (state, action) => {
+      state.pesoPer = action.payload
     }
   }
 })
 
-export const { setHousesReadings } = houseSlice.actions
+export const { setHousesReadings, setPesoPer } = houseSlice.actions
 
 export default houseSlice.reducer

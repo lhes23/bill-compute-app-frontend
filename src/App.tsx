@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="flex h-screen">
         <SideBar showSidebar={showSidebar} />
         <div className="flex flex-col flex-1 w-full">
           <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />

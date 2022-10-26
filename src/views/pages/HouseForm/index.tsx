@@ -1,17 +1,14 @@
 import React, { FormEvent, useState } from "react"
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { IHouseReading, Reading } from "../../../interfaces"
+import { setHousesReadings, setPesoPer } from "../../../redux/houseSlice"
 import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
-// import { setHousesReadings } from "../../../redux/houseSlice"
 
-interface IProps {
-  setHouseReadings: React.Dispatch<React.SetStateAction<Reading[]>>
-  setPesoPer: React.Dispatch<React.SetStateAction<number>>
-}
-
-const HouseForm = ({ setHouseReadings, setPesoPer }: IProps) => {
+const HouseForm = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [totalReading, setTotalReading] = useState<Reading>({
     name: "main",
@@ -62,41 +59,43 @@ const HouseForm = ({ setHouseReadings, setPesoPer }: IProps) => {
     const houseDConsumption = houseD.present - houseD.previous
     const houseDBill = houseDConsumption * pesoper
 
-    setPesoPer(pesoper)
-    setHouseReadings([
-      {
-        name: houseA.name,
-        tenant: houseA?.tenant || "",
-        previous: houseA.previous,
-        present: houseA.present,
-        consumption: houseAConsumption,
-        bill: houseABill
-      },
-      {
-        name: houseB.name,
-        tenant: houseB?.tenant || "",
-        previous: houseB.previous,
-        present: houseB.present,
-        consumption: houseBConsumption,
-        bill: houseBBill
-      },
-      {
-        name: houseC.name,
-        tenant: houseC?.tenant || "",
-        previous: houseC.previous,
-        present: houseC.present,
-        consumption: houseCConsumption,
-        bill: houseCBill
-      },
-      {
-        name: houseD.name,
-        tenant: houseD?.tenant || "",
-        previous: houseD.previous,
-        present: houseD.present,
-        consumption: houseDConsumption,
-        bill: houseDBill
-      }
-    ])
+    dispatch(setPesoPer(pesoper))
+    dispatch(
+      setHousesReadings([
+        {
+          name: houseA.name,
+          tenant: houseA?.tenant || "",
+          previous: houseA.previous,
+          present: houseA.present,
+          consumption: houseAConsumption,
+          bill: houseABill
+        },
+        {
+          name: houseB.name,
+          tenant: houseB?.tenant || "",
+          previous: houseB.previous,
+          present: houseB.present,
+          consumption: houseBConsumption,
+          bill: houseBBill
+        },
+        {
+          name: houseC.name,
+          tenant: houseC?.tenant || "",
+          previous: houseC.previous,
+          present: houseC.present,
+          consumption: houseCConsumption,
+          bill: houseCBill
+        },
+        {
+          name: houseD.name,
+          tenant: houseD?.tenant || "",
+          previous: houseD.previous,
+          present: houseD.present,
+          consumption: houseDConsumption,
+          bill: houseDBill
+        }
+      ])
+    )
 
     navigate("/result")
   }
