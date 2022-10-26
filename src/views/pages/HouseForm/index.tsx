@@ -1,7 +1,9 @@
 import React, { FormEvent, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { IHouseReading, Reading } from "../../../interfaces"
 import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
+// import { setHousesReadings } from "../../../redux/houseSlice"
 
 interface IProps {
   setHouseReadings: React.Dispatch<React.SetStateAction<Reading[]>>
@@ -9,6 +11,8 @@ interface IProps {
 }
 
 const HouseForm = ({ setHouseReadings, setPesoPer }: IProps) => {
+  const navigate = useNavigate()
+
   const [totalReading, setTotalReading] = useState<Reading>({
     name: "main",
     tenant: "main",
@@ -93,6 +97,8 @@ const HouseForm = ({ setHouseReadings, setPesoPer }: IProps) => {
         bill: houseDBill
       }
     ])
+
+    navigate("/result")
   }
 
   return (
@@ -103,22 +109,27 @@ const HouseForm = ({ setHouseReadings, setPesoPer }: IProps) => {
         </h2>
 
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-          <form onSubmit={formHandler}>
-            <TotalReading
-              totalReading={totalReading}
-              setTotalReading={setTotalReading}
-            />
-            <HouseComponent house={houseA} setHouse={setHouseA} />
-            <HouseComponent house={houseB} setHouse={setHouseB} />
-            <HouseComponent house={houseC} setHouse={setHouseC} />
-            <HouseComponent house={houseD} setHouse={setHouseD} />
+          {/* <form onSubmit={formHandler}> */}
+          <TotalReading
+            totalReading={totalReading}
+            setTotalReading={setTotalReading}
+          />
 
-            <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
-              <button type="submit" className={styles.submitBtn}>
-                <span className={styles.submitSpan}>Submit</span>
-              </button>
-            </div>
-          </form>
+          <HouseComponent house={houseA} setHouse={setHouseA} />
+          <HouseComponent house={houseB} setHouse={setHouseB} />
+          <HouseComponent house={houseC} setHouse={setHouseC} />
+          <HouseComponent house={houseD} setHouse={setHouseD} />
+
+          <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
+            <button
+              type="submit"
+              className={styles.submitBtn}
+              onClick={formHandler}
+            >
+              <span className={styles.submitSpan}>Submit</span>
+            </button>
+          </div>
+          {/* </form> */}
         </div>
       </div>
     </>

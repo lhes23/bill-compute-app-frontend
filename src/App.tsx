@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import ResultTable from "./components/ResultTable"
 import SideBar from "./layouts/SideBar"
 import Main from "./views/pages/Main"
 import Header from "./layouts/Header"

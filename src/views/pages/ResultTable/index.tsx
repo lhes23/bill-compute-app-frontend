@@ -1,5 +1,5 @@
 import React from "react"
-import { Reading } from "../interfaces"
+import { Reading } from "../../../interfaces"
 
 const ResultTable = ({
   houseReadings,
@@ -10,6 +10,9 @@ const ResultTable = ({
 }) => {
   return (
     <>
+      <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Result
+      </h2>
       {houseReadings.map((house) => (
         <div
           key={house.name}
