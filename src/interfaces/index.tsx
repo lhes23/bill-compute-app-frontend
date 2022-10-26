@@ -8,4 +8,7 @@ export interface IHouseReading {
 export interface Reading extends IHouseReading {
   consumption: number
   bill: number
+  dueDate: Date
+  startDate: Date
+  endDate: Date
 }

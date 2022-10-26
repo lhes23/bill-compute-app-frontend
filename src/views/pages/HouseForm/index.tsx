@@ -1,23 +1,28 @@
 import React, { FormEvent, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { IHouseReading, Reading } from "../../../interfaces"
 import { setHousesReadings, setPesoPer } from "../../../redux/houseSlice"
+import { RootState } from "../../../store"
 import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
 
 const HouseForm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const store = useSelector((state: RootState) => state.houses)
 
-  const [totalReading, setTotalReading] = useState<Reading>({
-    name: "main",
-    tenant: "main",
-    previous: 0,
-    present: 0,
-    consumption: 0,
-    bill: 0
-  })
+  // const [totalReading, setTotalReading] = useState<Reading>({
+  //   name: "main",
+  //   tenant: "main",
+  //   previous: 0,
+  //   present: 0,
+  //   consumption: 0,
+  //   bill: 0,
+  //   dueDate: new Date(),
+  //   startDate: new Date(),
+  //   endDate: new Date()
+  // })
 
   const [houseA, setHouseA] = useState<IHouseReading>({
     name: "House A",
@@ -44,8 +49,9 @@ const HouseForm = () => {
     present: 0
   })
 
-  const totalConsumption = totalReading.present - totalReading.previous
-  const pesoper = Math.round(totalReading.bill / totalConsumption)
+  const totalConsumption =
+    store.totalReadings.present - store.totalReadings.previous
+  const pesoper = Math.round(store.totalReadings.bill / totalConsumption)
 
   const formHandler = async (e: FormEvent) => {
     e.preventDefault()
@@ -109,10 +115,7 @@ const HouseForm = () => {
 
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
           {/* <form onSubmit={formHandler}> */}
-          <TotalReading
-            totalReading={totalReading}
-            setTotalReading={setTotalReading}
-          />
+          <TotalReading />
 
           <HouseComponent house={houseA} setHouse={setHouseA} />
           <HouseComponent house={houseB} setHouse={setHouseB} />

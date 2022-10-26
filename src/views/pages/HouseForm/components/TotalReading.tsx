@@ -3,17 +3,17 @@ import { Reading } from "../../../../interfaces"
 
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "../../../../store"
+import { setTotalReadings } from "../../../../redux/houseSlice"
 
-const TotalReading = ({
-  totalReading,
-  setTotalReading
-}: {
-  totalReading: Reading
-  setTotalReading: React.Dispatch<React.SetStateAction<Reading>>
-}) => {
-  const [dueDate, setDueDate] = useState(new Date())
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
+const TotalReading = () => {
+  // const [dueDate, setDueDate] = useState(new Date())
+  // const [startDate, setStartDate] = useState(new Date())
+  // const [endDate, setEndDate] = useState(new Date())
+
+  const { totalReadings } = useSelector((state: RootState) => state.houses)
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -23,8 +23,10 @@ const TotalReading = ({
             <span className="text-gray-700 dark:text-gray-400">Due Date</span>
           </label>
           <DatePicker
-            selected={dueDate}
-            onChange={(date: Date) => setDueDate(date)}
+            selected={totalReadings.dueDate}
+            onChange={(date: Date) =>
+              dispatch(setTotalReadings({ ...totalReadings, dueDate: date }))
+            }
             className={styles.input}
           />
         </div>
@@ -37,11 +39,13 @@ const TotalReading = ({
             </span>
           </label>
           <DatePicker
-            selected={startDate}
+            selected={totalReadings.startDate}
             selectsStart
-            startDate={startDate}
-            endDate={endDate}
-            onChange={(date: Date) => setStartDate(date)}
+            startDate={totalReadings.startDate}
+            endDate={totalReadings.endDate}
+            onChange={(date: Date) =>
+              dispatch(setTotalReadings({ ...totalReadings, startDate: date }))
+            }
             className={styles.input}
           />
         </div>
@@ -52,12 +56,14 @@ const TotalReading = ({
             </span>
           </label>
           <DatePicker
-            selected={endDate}
+            selected={totalReadings.endDate}
             selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            onChange={(date: Date) => setEndDate(date)}
+            startDate={totalReadings.startDate}
+            endDate={totalReadings.endDate}
+            minDate={totalReadings.startDate}
+            onChange={(date: Date) =>
+              dispatch(setTotalReadings({ ...totalReadings, endDate: date }))
+            }
             className={styles.input}
           />
         </div>
@@ -104,12 +110,14 @@ const TotalReading = ({
             id="previous_reading"
             className={styles.input}
             placeholder="Previous Reading"
-            value={totalReading.previous}
+            value={totalReadings.previous}
             onChange={(e) =>
-              setTotalReading({
-                ...totalReading,
-                previous: Number(e.target.value)
-              })
+              dispatch(
+                setTotalReadings({
+                  ...totalReadings,
+                  previous: Number(e.target.value)
+                })
+              )
             }
           />
         </div>
@@ -125,12 +133,14 @@ const TotalReading = ({
             id="present_reading"
             className={styles.input}
             placeholder="Present Reading"
-            value={totalReading.present}
+            value={totalReadings.present}
             onChange={(e) =>
-              setTotalReading({
-                ...totalReading,
-                present: Number(e.target.value)
-              })
+              dispatch(
+                setTotalReadings({
+                  ...totalReadings,
+                  present: Number(e.target.value)
+                })
+              )
             }
           />
         </div>
@@ -144,12 +154,14 @@ const TotalReading = ({
           id="total_reading"
           className={styles.input}
           placeholder="Total Bill"
-          value={totalReading.bill}
+          value={totalReadings.bill}
           onChange={(e) =>
-            setTotalReading({
-              ...totalReading,
-              bill: Number(e.target.value)
-            })
+            dispatch(
+              setTotalReadings({
+                ...totalReadings,
+                bill: Number(e.target.value)
+              })
+            )
           }
         />
       </div>
