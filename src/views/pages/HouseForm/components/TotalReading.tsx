@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-import { Reading } from "../../../../interfaces"
+import React from "react"
 
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
@@ -8,10 +7,6 @@ import { RootState } from "../../../../store"
 import { setTotalReadings } from "../../../../redux/houseSlice"
 
 const TotalReading = () => {
-  // const [dueDate, setDueDate] = useState(new Date())
-  // const [startDate, setStartDate] = useState(new Date())
-  // const [endDate, setEndDate] = useState(new Date())
-
   const { totalReadings } = useSelector((state: RootState) => state.houses)
   const dispatch = useDispatch()
 
@@ -25,7 +20,12 @@ const TotalReading = () => {
           <DatePicker
             selected={totalReadings.dueDate}
             onChange={(date: Date) =>
-              dispatch(setTotalReadings({ ...totalReadings, dueDate: date }))
+              dispatch(
+                setTotalReadings({
+                  ...totalReadings,
+                  dueDate: date.toDateString()
+                })
+              )
             }
             className={styles.input}
           />
@@ -44,7 +44,12 @@ const TotalReading = () => {
             startDate={totalReadings.startDate}
             endDate={totalReadings.endDate}
             onChange={(date: Date) =>
-              dispatch(setTotalReadings({ ...totalReadings, startDate: date }))
+              dispatch(
+                setTotalReadings({
+                  ...totalReadings,
+                  startDate: date.toDateString()
+                })
+              )
             }
             className={styles.input}
           />
@@ -62,7 +67,12 @@ const TotalReading = () => {
             endDate={totalReadings.endDate}
             minDate={totalReadings.startDate}
             onChange={(date: Date) =>
-              dispatch(setTotalReadings({ ...totalReadings, endDate: date }))
+              dispatch(
+                setTotalReadings({
+                  ...totalReadings,
+                  endDate: date.toDateString()
+                })
+              )
             }
             className={styles.input}
           />
