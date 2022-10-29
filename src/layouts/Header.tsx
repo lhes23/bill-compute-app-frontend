@@ -1,26 +1,11 @@
 import React from "react"
-import { GiHamburgerMenu } from "react-icons/gi"
 import { Link } from "react-router-dom"
 
-const Header = ({
-  showSidebar,
-  setShowSidebar
-}: {
-  showSidebar: boolean
-  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>
-}) => {
+const Header = () => {
   return (
     <>
       <header className="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
         <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
-          {/* <!-- Mobile hamburger --> */}
-          <div className="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple">
-            <GiHamburgerMenu
-              size={30}
-              onClick={() => setShowSidebar(!showSidebar)}
-            />
-          </div>
-
           <div className="flex justify-center flex-1 lg:mr-32">
             <div className="px-6 my-6">
               <Link
