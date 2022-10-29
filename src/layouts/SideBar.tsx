@@ -25,7 +25,7 @@ const SideBar = () => {
               to="/add-reading"
             >
               <FaWpforms size={25} />
-              <span className="ml-4 text-xl">Forms</span>
+              <span className="ml-4 text-xl">Add a Reading</span>
             </Link>
           </li>
         </ul>

@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { IHouseReading, Reading } from "../../../interfaces"
+import { IHouseReading } from "../../../interfaces"
 import {
   setHousesReadings,
   setPesoPer,
