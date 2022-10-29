@@ -30,7 +30,7 @@ const LineChart = ({ data }: { data: ChartData<"line"> }) => {
 
   return (
     <>
-      <div className="p-4 my-4 bg-white rounded-lg shadow-lg">
+      <div className="p-4 my-4 md:m-4 bg-white rounded-lg shadow-lg">
         <Line data={data} height="40%" width="100%" options={options} />
       </div>
     </>

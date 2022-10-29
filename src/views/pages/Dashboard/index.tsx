@@ -23,9 +23,13 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <h3 className="my-6 text-xl font-semibold">Yearly Consumptions</h3>
-      <LineChart data={electricData} />
-      <LineChart data={waterData} />
+      <div>
+        <h3 className="my-6 text-xl font-semibold">Yearly Consumptions</h3>
+        <div className="md:grid grid-cols-2">
+          <LineChart data={electricData} />
+          <LineChart data={waterData} />
+        </div>
+      </div>
 
       <h3 className="my-6 text-xl font-semibold">Active Tenants</h3>
       <TenantTable />
