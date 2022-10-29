@@ -17,11 +17,12 @@ const Dashboard = () => {
       <h2 className="my-6 text-2xl font-semibold">Dashboard</h2>
 
       {/* Cards */}
-      <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4">
+      <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4 content-center">
         {houses.map((house) => (
           <HouseCard key={house.id} house={house} />
         ))}
       </div>
+
       <h3 className="my-6 text-xl font-semibold">Yearly Consumptions</h3>
       <LineChart data={electricData} />
       <LineChart data={waterData} />

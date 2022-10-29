@@ -7,7 +7,7 @@ import ResultTable from "../ResultTable"
 const Main = () => {
   return (
     <>
-      <main className="h-full container">
+      <main className="h-full">
         <div className="px-6 mx-auto">
           <Routes>
             <Route path="/" element={<Dashboard />} />
