@@ -118,11 +118,9 @@ const HouseForm = () => {
   return (
     <>
       <div>
-        <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-          Add a Reading
-        </h2>
+        <h2 className="my-6 text-2xl font-semibold">Add a Reading</h2>
 
-        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
           {/* <form onSubmit={formHandler}> */}
           <TotalReading
             dueDateLocal={dueDateLocal}

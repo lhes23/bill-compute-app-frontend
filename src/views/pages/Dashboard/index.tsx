@@ -14,9 +14,7 @@ export const houses = [
 const Dashboard = () => {
   return (
     <>
-      <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Dashboard
-      </h2>
+      <h2 className="my-6 text-2xl font-semibold">Dashboard</h2>
 
       {/* Cards */}
       <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4">
@@ -24,15 +22,11 @@ const Dashboard = () => {
           <HouseCard key={house.id} house={house} />
         ))}
       </div>
-      <h3 className="my-6 text-xl font-semibold text-gray-700 dark:text-gray-200">
-        Yearly Consumptions
-      </h3>
+      <h3 className="my-6 text-xl font-semibold">Yearly Consumptions</h3>
       <LineChart data={electricData} />
       <LineChart data={waterData} />
 
-      <h3 className="my-6 text-xl font-semibold text-gray-700 dark:text-gray-200">
-        Active Tenants
-      </h3>
+      <h3 className="my-6 text-xl font-semibold">Active Tenants</h3>
       <TenantTable />
     </>
   )
