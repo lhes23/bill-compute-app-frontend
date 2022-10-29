@@ -7,5 +7,35 @@ module.exports = {
   theme: {
     extend: {}
   },
-  plugins: [require("flowbite/plugin"), require("@tailwindcss/forms")]
+  daisyui: {
+    themes: [
+      "light",
+      "dark",
+      "valentine",
+      "halloween",
+      "garden",
+      "forest",
+      "aqua",
+      "lofi",
+      "pastel",
+      "fantasy",
+      "wireframe",
+      "black",
+      "luxury",
+      "dracula",
+      "cmyk",
+      "autumn",
+      "business",
+      "acid",
+      "lemonade",
+      "night",
+      "coffee",
+      "winter"
+    ]
+  },
+  plugins: [
+    require("flowbite/plugin"),
+    require("@tailwindcss/forms"),
+    require("daisyui")
+  ]
 }

@@ -1,5 +1,5 @@
 import React from "react"
-import { data } from "./chartData"
+import { electricData, waterData } from "./chartData"
 import HouseCard from "./components/HouseCard"
 import LineChart from "./components/LineChart"
 import TenantTable from "./components/TenantTable"
@@ -14,22 +14,24 @@ export const houses = [
 const Dashboard = () => {
   return (
     <>
-      <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Dashboard
-      </h2>
+      <h2 className="my-6 text-2xl font-semibold">Dashboard</h2>
 
       {/* Cards */}
-      <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4">
+      <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4 content-center">
         {houses.map((house) => (
           <HouseCard key={house.id} house={house} />
         ))}
       </div>
-      <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Yearly Consumptions
-      </h2>
-      <div className="py-2 my-4">
-        <LineChart data={data} />
+
+      <div>
+        <h3 className="my-6 text-xl font-semibold">Yearly Consumptions</h3>
+        <div className="md:grid grid-cols-2">
+          <LineChart data={electricData} />
+          <LineChart data={waterData} />
+        </div>
       </div>
+
+      <h3 className="my-6 text-xl font-semibold">Active Tenants</h3>
       <TenantTable />
     </>
   )

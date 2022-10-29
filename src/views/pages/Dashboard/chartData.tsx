@@ -1,6 +1,6 @@
 import { IData, months } from "./components/LineChart"
 
-export const data: IData = {
+export const electricData: IData = {
   labels: months,
   datasets: [
     {
@@ -12,7 +12,13 @@ export const data: IData = {
       backgroundColor: ["green"],
       borderColor: ["green"],
       borderWidth: 1
-    },
+    }
+  ]
+}
+
+export const waterData: IData = {
+  labels: months,
+  datasets: [
     {
       label: "Water Consumption",
       data: [
