@@ -1,6 +1,7 @@
 import React from "react"
+import { data } from "./chartData"
 import HouseCard from "./components/HouseCard"
-import ConsumptionChart from "./components/ConsumptionChart"
+import LineChart from "./components/LineChart"
 import TenantTable from "./components/TenantTable"
 
 export const houses = [
@@ -23,7 +24,12 @@ const Dashboard = () => {
           <HouseCard key={house.id} house={house} />
         ))}
       </div>
-      <ConsumptionChart />
+      <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Yearly Consumptions
+      </h2>
+      <div className="py-2 my-4">
+        <LineChart data={data} />
+      </div>
       <TenantTable />
     </>
   )
