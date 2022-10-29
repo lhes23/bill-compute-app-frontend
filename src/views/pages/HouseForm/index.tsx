@@ -2,7 +2,11 @@ import React, { FormEvent, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { IHouseReading, Reading } from "../../../interfaces"
-import { setHousesReadings, setPesoPer } from "../../../redux/houseSlice"
+import {
+  setHousesReadings,
+  setPesoPer,
+  setTotalReadings
+} from "../../../redux/houseSlice"
 import { RootState } from "../../../store"
 import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
@@ -12,17 +16,9 @@ const HouseForm = () => {
   const dispatch = useDispatch()
   const store = useSelector((state: RootState) => state.houses)
 
-  // const [totalReading, setTotalReading] = useState<Reading>({
-  //   name: "main",
-  //   tenant: "main",
-  //   previous: 0,
-  //   present: 0,
-  //   consumption: 0,
-  //   bill: 0,
-  //   dueDate: new Date(),
-  //   startDate: new Date(),
-  //   endDate: new Date()
-  // })
+  const [dueDateLocal, setDueDateLocal] = useState<Date>(new Date())
+  const [startDateLocal, setStartDateLocal] = useState<Date>(new Date())
+  const [endDateLocal, setEndDateLocal] = useState<Date>(new Date())
 
   const [houseA, setHouseA] = useState<IHouseReading>({
     name: "House A",
@@ -65,7 +61,20 @@ const HouseForm = () => {
     const houseDConsumption = houseD.present - houseD.previous
     const houseDBill = houseDConsumption * pesoper
 
+    // Save Dates on Redux
+    dispatch(
+      setTotalReadings({
+        ...store.totalReadings,
+        dueDate: dueDateLocal.toDateString(),
+        startDate: startDateLocal.toDateString(),
+        endDate: endDateLocal.toDateString()
+      })
+    )
+
+    // Save pesoPer on Redux
     dispatch(setPesoPer(pesoper))
+
+    // Save the Readings
     dispatch(
       setHousesReadings([
         {
@@ -115,7 +124,14 @@ const HouseForm = () => {
 
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
           {/* <form onSubmit={formHandler}> */}
-          <TotalReading />
+          <TotalReading
+            dueDateLocal={dueDateLocal}
+            setDueDateLocal={setDueDateLocal}
+            startDateLocal={startDateLocal}
+            setStartDateLocal={setStartDateLocal}
+            endDateLocal={endDateLocal}
+            setEndDateLocal={setEndDateLocal}
+          />
 
           <HouseComponent house={houseA} setHouse={setHouseA} />
           <HouseComponent house={houseB} setHouse={setHouseB} />

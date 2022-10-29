@@ -6,8 +6,6 @@ import Header from "./layouts/Header"
 function App() {
   const [showSidebar, setShowSidebar] = useState<boolean>(true)
 
-  console.log(showSidebar)
-
   return (
     <>
       <div className="flex h-screen">

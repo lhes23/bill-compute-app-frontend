@@ -16,9 +16,9 @@ interface IInitialState {
     present: number
     consumption: number
     bill: number
-    dueDate: Date
-    startDate: Date
-    endDate: Date
+    dueDate: string
+    startDate: string
+    endDate: string
   }
 }
 
@@ -40,9 +40,9 @@ const initialState: IInitialState = {
     present: 0,
     consumption: 0,
     bill: 0,
-    dueDate: new Date(),
-    startDate: new Date(),
-    endDate: new Date()
+    dueDate: "",
+    startDate: "",
+    endDate: ""
   }
 }
 

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
@@ -6,7 +6,23 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../../store"
 import { setTotalReadings } from "../../../../redux/houseSlice"
 
-const TotalReading = () => {
+interface IProps {
+  dueDateLocal: Date
+  setDueDateLocal: React.Dispatch<React.SetStateAction<Date>>
+  startDateLocal: Date
+  setStartDateLocal: React.Dispatch<React.SetStateAction<Date>>
+  endDateLocal: Date
+  setEndDateLocal: React.Dispatch<React.SetStateAction<Date>>
+}
+
+const TotalReading = ({
+  dueDateLocal,
+  setDueDateLocal,
+  startDateLocal,
+  setStartDateLocal,
+  endDateLocal,
+  setEndDateLocal
+}: IProps) => {
   const { totalReadings } = useSelector((state: RootState) => state.houses)
   const dispatch = useDispatch()
 
@@ -18,15 +34,8 @@ const TotalReading = () => {
             <span className="text-gray-700 dark:text-gray-400">Due Date</span>
           </label>
           <DatePicker
-            selected={totalReadings.dueDate}
-            onChange={(date: Date) =>
-              dispatch(
-                setTotalReadings({
-                  ...totalReadings,
-                  dueDate: date.toDateString()
-                })
-              )
-            }
+            selected={dueDateLocal}
+            onChange={(date: Date) => setDueDateLocal(date)}
             className={styles.input}
           />
         </div>
@@ -39,18 +48,11 @@ const TotalReading = () => {
             </span>
           </label>
           <DatePicker
-            selected={totalReadings.startDate}
+            selected={startDateLocal}
             selectsStart
-            startDate={totalReadings.startDate}
-            endDate={totalReadings.endDate}
-            onChange={(date: Date) =>
-              dispatch(
-                setTotalReadings({
-                  ...totalReadings,
-                  startDate: date.toDateString()
-                })
-              )
-            }
+            startDate={startDateLocal}
+            endDate={endDateLocal}
+            onChange={(date: Date) => setStartDateLocal(date)}
             className={styles.input}
           />
         </div>
@@ -61,19 +63,12 @@ const TotalReading = () => {
             </span>
           </label>
           <DatePicker
-            selected={totalReadings.endDate}
+            selected={endDateLocal}
             selectsEnd
-            startDate={totalReadings.startDate}
-            endDate={totalReadings.endDate}
-            minDate={totalReadings.startDate}
-            onChange={(date: Date) =>
-              dispatch(
-                setTotalReadings({
-                  ...totalReadings,
-                  endDate: date.toDateString()
-                })
-              )
-            }
+            startDate={startDateLocal}
+            endDate={endDateLocal}
+            minDate={startDateLocal}
+            onChange={(date: Date) => setEndDateLocal(date)}
             className={styles.input}
           />
         </div>
@@ -116,7 +111,7 @@ const TotalReading = () => {
           </label>
 
           <input
-            type="text"
+            type="number"
             id="previous_reading"
             className={styles.input}
             placeholder="Previous Reading"
@@ -139,7 +134,7 @@ const TotalReading = () => {
           </label>
 
           <input
-            type="text"
+            type="number"
             id="present_reading"
             className={styles.input}
             placeholder="Present Reading"
