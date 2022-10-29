@@ -28,7 +28,13 @@ const LineChart = ({ data }: { data: ChartData<"line"> }) => {
     responsive: true
   }
 
-  return <Line data={data} height="40%" width="100%" options={options} />
+  return (
+    <>
+      <div className="p-4 my-4 bg-white rounded-lg shadow-lg">
+        <Line data={data} height="40%" width="100%" options={options} />
+      </div>
+    </>
+  )
 }
 
 export default LineChart

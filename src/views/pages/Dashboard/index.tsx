@@ -1,5 +1,5 @@
 import React from "react"
-import { data } from "./chartData"
+import { electricData, waterData } from "./chartData"
 import HouseCard from "./components/HouseCard"
 import LineChart from "./components/LineChart"
 import TenantTable from "./components/TenantTable"
@@ -24,12 +24,15 @@ const Dashboard = () => {
           <HouseCard key={house.id} house={house} />
         ))}
       </div>
-      <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+      <h3 className="my-6 text-xl font-semibold text-gray-700 dark:text-gray-200">
         Yearly Consumptions
-      </h2>
-      <div className="py-2 my-4">
-        <LineChart data={data} />
-      </div>
+      </h3>
+      <LineChart data={electricData} />
+      <LineChart data={waterData} />
+
+      <h3 className="my-6 text-xl font-semibold text-gray-700 dark:text-gray-200">
+        Active Tenants
+      </h3>
       <TenantTable />
     </>
   )
