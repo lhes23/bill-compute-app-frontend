@@ -12,3 +12,25 @@ export interface Reading extends IHouseReading {
   startDate: Date
   endDate: Date
 }
+
+export interface IHouse {
+  id: string
+  name: string
+  is_occupied: boolean
+  color: string
+}
+
+export const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+]
