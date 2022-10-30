@@ -3,23 +3,19 @@ import { electricData, waterData } from "./chartData"
 import HouseCard from "./components/HouseCard"
 import LineChart from "./components/LineChart"
 import TenantTable from "./components/TenantTable"
-import client from "../../../axios"
-
-interface IHouses {
-  id: string
-  name: string
-  isOccupied: boolean
-  color: string
-}
+import client from "../../../axiosClient/client"
+// import client from "../../../axiosClient"
+import { IHouse } from "../../../interfaces"
+import { AxiosError, AxiosResponse } from "axios"
 
 const Dashboard = () => {
-  const [houses, setHouses] = useState<IHouses[]>([])
+  const [houses, setHouses] = useState<IHouse[]>([])
 
   useEffect(() => {
     client
       .get("houses/")
-      .then((res) => setHouses(res.data))
-      .catch((err) => console.log(err))
+      .then((res: AxiosResponse) => setHouses(res.data))
+      .catch((err: AxiosError) => console.log(err))
   }, [])
 
   return (
@@ -35,9 +31,10 @@ const Dashboard = () => {
 
       <div>
         <h3 className="my-6 text-xl font-semibold">Yearly Consumptions</h3>
+        <LineChart />
         <div className="md:grid grid-cols-2">
-          <LineChart data={electricData} />
-          <LineChart data={waterData} />
+          {/* <LineChart data={electricData} />
+          <LineChart data={waterData} /> */}
         </div>
       </div>
 

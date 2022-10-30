@@ -1,12 +1,6 @@
 import React from "react"
 import { FaHouseUser } from "react-icons/fa"
-
-interface IHouse {
-  id: string
-  name: string
-  isOccupied: boolean
-  color: string
-}
+import { IHouse } from "../../../../interfaces"
 
 const HouseCard = ({ house }: { house: IHouse }) => {
   return (
@@ -20,7 +14,7 @@ const HouseCard = ({ house }: { house: IHouse }) => {
         <div>
           <p className="mb-2 text-sm font-medium text-gray-600">{house.name}</p>
           <p className="text-lg font-semibold text-gray-700">
-            {house.isOccupied ? "Occupied" : "Vacant"}
+            {house.is_occupied ? "Occupied" : "Vacant"}
           </p>
         </div>
       </div>
