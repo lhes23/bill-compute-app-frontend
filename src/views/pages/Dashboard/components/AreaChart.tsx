@@ -33,11 +33,13 @@ export const options = {
 const AreaChart = ({
   datasets,
   label,
-  color
+  color,
+  fillColor
 }: {
   datasets: number[]
   label: string
   color: string
+  fillColor: string
 }) => {
   const data = {
     labels: months,
@@ -47,7 +49,7 @@ const AreaChart = ({
         label,
         data: datasets,
         borderColor: color,
-        backgroundColor: color
+        backgroundColor: fillColor
       }
     ]
   }
