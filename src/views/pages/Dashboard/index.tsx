@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { electricData, waterData } from "./chartData"
 import HouseCard from "./components/HouseCard"
 import LineChart from "./components/LineChart"
@@ -12,6 +12,18 @@ export const houses = [
 ]
 
 const Dashboard = () => {
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://127.0.0.1:8000/api/houses/")
+      const d = await res.json()
+      setData(d)
+    }
+    fetchData()
+  }, [])
+
+  console.log(data)
   return (
     <>
       <h2 className="my-6 text-2xl font-semibold">Dashboard</h2>
