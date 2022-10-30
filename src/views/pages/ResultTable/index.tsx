@@ -4,7 +4,9 @@ import { RootState } from "../../../store"
 
 const ResultTable = () => {
   const store = useSelector((state: RootState) => state.houses)
-  const { dueDate, startDate, endDate } = store.totalReadings
+  const { dueDate, startDate, endDate, billType } = store.totalReadings
+
+  console.log(store.totalReadings)
 
   return (
     <>
@@ -22,7 +24,7 @@ const ResultTable = () => {
                 Due Date: {dueDate}
               </div>
               <div className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">
-                {house.name} - {house.tenant}
+                {house.name} - {house.tenant} - {billType}
               </div>
               <div className="flex flex-col">
                 <div className="overflow-x-auto">
@@ -32,15 +34,11 @@ const ResultTable = () => {
                         <thead className="bg-white border-b"></thead>
                         <tbody>
                           <tr className="bg-white border-b">
-                            <td className={styles.divLabel}>
-                              Date Covered From:
-                            </td>
+                            <td className={styles.divLabel}>From:</td>
                             <td className={styles.divValue}>{startDate}</td>
                           </tr>
                           <tr className="bg-gray-100 border-b">
-                            <td className={styles.divLabel}>
-                              Date Covered to:
-                            </td>
+                            <td className={styles.divLabel}>To:</td>
                             <td className={styles.divValue}>{endDate}</td>
                           </tr>
                           <tr className="bg-white border-b">

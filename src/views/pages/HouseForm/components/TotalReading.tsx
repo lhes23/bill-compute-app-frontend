@@ -82,9 +82,18 @@ const TotalReading = ({
               id="electric"
               type="radio"
               name="bill"
-              defaultValue="Electric"
+              // defaultValue="Electric"
+              value="Electric"
               className={styles.radio}
               defaultChecked
+              onChange={(e) =>
+                dispatch(
+                  setTotalReadings({
+                    ...totalReadings,
+                    billType: e.target.value
+                  })
+                )
+              }
             />
             <span className="ml-2">Electric Bill</span>
           </label>
@@ -93,8 +102,17 @@ const TotalReading = ({
               id="water"
               type="radio"
               name="bill"
-              defaultValue="Water"
+              // defaultValue="Water"
+              value="Water"
               className={styles.radio}
+              onChange={(e) =>
+                dispatch(
+                  setTotalReadings({
+                    ...totalReadings,
+                    billType: e.target.value
+                  })
+                )
+              }
             />
             <span className="ml-2">Water Bill</span>
           </label>

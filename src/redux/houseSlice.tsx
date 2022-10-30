@@ -12,6 +12,7 @@ interface IInitialState {
   pesoPer: number
   totalReadings: {
     name: string
+    billType: string
     previous: number
     present: number
     consumption: number
@@ -36,6 +37,7 @@ const initialState: IInitialState = {
   pesoPer: 0,
   totalReadings: {
     name: "main",
+    billType: "Electric",
     previous: 0,
     present: 0,
     consumption: 0,
