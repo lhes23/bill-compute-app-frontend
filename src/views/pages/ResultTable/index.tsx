@@ -9,21 +9,19 @@ const ResultTable = () => {
   console.log(store.totalReadings)
 
   return (
-    <>
-      <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Result
-      </h2>
+    <div data-theme="light">
+      <h2 className="my-6 text-2xl font-semibold">Result</h2>
       {store.houses.map((house) => (
         <div
           key={house.name}
-          className="max-w-md mx-auto bg-gradient-to-tr from-slate-100 via-blue-100  to-slate-200 my-4 rounded-xl shadow-lg overflow-hidden md:max-w-2xl"
+          className="max-w-md mx-auto my-4 rounded-xl shadow-lg overflow-hidden md:max-w-2xl bg-gradient-to-tr from-orange-300 via-purple-500 to-lime-300"
         >
           <div className="">
             <div className="px-2 py-4">
-              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+              <div className="uppercase tracking-wide text-smfont-semibold">
                 Due Date: {dueDate}
               </div>
-              <div className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">
+              <div className="block mt-1 text-lg leading-tight font-medium hover:underline">
                 {house.name} - {house.tenant} - {billType}
               </div>
               <div className="flex flex-col">
@@ -34,12 +32,9 @@ const ResultTable = () => {
                         <thead className="bg-white border-b"></thead>
                         <tbody>
                           <tr className="bg-white border-b">
-                            <td className={styles.divLabel}>From:</td>
-                            <td className={styles.divValue}>{startDate}</td>
-                          </tr>
-                          <tr className="bg-gray-100 border-b">
-                            <td className={styles.divLabel}>To:</td>
-                            <td className={styles.divValue}>{endDate}</td>
+                            <td className={styles.divLabel} colSpan={2}>
+                              From {startDate} to {endDate}
+                            </td>
                           </tr>
                           <tr className="bg-white border-b">
                             <td className={styles.divLabel}>
@@ -87,7 +82,7 @@ const ResultTable = () => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   )
 }
 
