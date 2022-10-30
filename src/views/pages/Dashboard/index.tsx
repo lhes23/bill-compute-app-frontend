@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { electricData, waterData } from "./chartData"
 import HouseCard from "./components/HouseCard"
-import LineChart from "./components/LineChart"
+import AreaChart from "./components/AreaChart"
 import TenantTable from "./components/TenantTable"
 import client from "../../../axiosClient/client"
 // import client from "../../../axiosClient"
@@ -31,10 +31,13 @@ const Dashboard = () => {
 
       <div>
         <h3 className="my-6 text-xl font-semibold">Yearly Consumptions</h3>
-        <LineChart />
         <div className="md:grid grid-cols-2">
-          {/* <LineChart data={electricData} />
-          <LineChart data={waterData} /> */}
+          <AreaChart
+            datasets={electricData}
+            label="Electric Bill"
+            color="green"
+          />
+          <AreaChart datasets={waterData} label="Water Bill" color="blue" />
         </div>
       </div>
 
