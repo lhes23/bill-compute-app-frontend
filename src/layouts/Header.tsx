@@ -1,158 +1,109 @@
 import React from "react"
+import { AiOutlineDashboard } from "react-icons/ai"
+import { FaWpforms } from "react-icons/fa"
+import { GiHamburgerMenu } from "react-icons/gi"
 import { Link } from "react-router-dom"
 
-const Header = () => {
+const Header = ({
+  setTheme
+}: {
+  setTheme: React.Dispatch<React.SetStateAction<string>>
+}) => {
   return (
     <>
-      <header className="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
-        <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
-          <div className="flex justify-center flex-1 lg:mr-32">
-            <div className="px-6 my-6">
-              <Link
-                to="/add-reading"
-                className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-              >
-                Add a Reading
-                <span className="ml-2" aria-hidden="true">
-                  +
-                </span>
-              </Link>
-            </div>
+      <header className="navbar bg-base-100">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <label tabIndex={0} className="btn btn-primary btn-circle">
+              <GiHamburgerMenu size={30} />
+            </label>
+            <ul tabIndex={0} className={styles.ul}>
+              <li className={styles.li}>
+                <Link className={styles.link} to="/">
+                  <AiOutlineDashboard size={25} />
+                  <span className={styles.span}>Dashboard</span>
+                </Link>
+              </li>
+              <li className={styles.li}>
+                <Link className={styles.link} to="/add-reading">
+                  <FaWpforms size={25} />
+                  <span className={styles.span}>Add a Reading</span>
+                </Link>
+              </li>
+              <li className={styles.li}>
+                <label tabIndex={0} className={styles.link}>
+                  <FaWpforms size={25} />
+                  <span className={styles.span}>Themes</span>
+                </label>
+                <ul tabIndex={0} className={styles.ul}>
+                  <li className={styles.li} onClick={() => setTheme("light")}>
+                    <span className={styles.span}>Light</span>
+                  </li>
+                  <li className={styles.li} onClick={() => setTheme("dark")}>
+                    <span className={styles.span}>Dark</span>
+                  </li>
+                  <li
+                    className={styles.li}
+                    onClick={() => setTheme("valentine")}
+                  >
+                    <span className={styles.span}>Valentine</span>
+                  </li>
+                  <li
+                    className={styles.li}
+                    onClick={() => setTheme("halloween")}
+                  >
+                    <span className={styles.span}>Halloween</span>
+                  </li>
+                  <li className={styles.li} onClick={() => setTheme("luxury")}>
+                    <span className={styles.span}>Luxury</span>
+                  </li>
+                  <li className={styles.li} onClick={() => setTheme("winter")}>
+                    <span className={styles.span}>Winter</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </div>
-          <ul className="flex items-center flex-shrink-0 space-x-6">
-            {/* <!-- Theme toggler --> */}
-
-            {/* <!-- Notifications menu --> */}
-            <li className="relative">
-              <button className="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                <svg
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
-                </svg>
-                {/* <!-- Notification badge --> */}
-                <span
-                  aria-hidden="true"
-                  className="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
-                ></span>
-              </button>
-              {/* 
-              <ul className="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700">
-                <li className="flex">
-                  <a
-                    className="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                    href="/#"
-                  >
-                    <span>Messages</span>
-                    <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
-                      13
-                    </span>
-                  </a>
-                </li>
-                <li className="flex">
-                  <a
-                    className="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                    href="/#"
-                  >
-                    <span>Sales</span>
-                    <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
-                      2
-                    </span>
-                  </a>
-                </li>
-                <li className="flex">
-                  <a
-                    className="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                    href="/#"
-                  >
-                    <span>Alerts</span>
-                  </a>
-                </li>
-              </ul> */}
-            </li>
-            {/* <!-- Profile menu --> */}
-            {/* <li className="relative">
-              <button className="align-middle rounded-full focus:shadow-outline-purple focus:outline-none">
-                <img
-                  className="object-cover w-8 h-8 rounded-full"
-                  src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
-                  alt=""
-                  aria-hidden="true"
-                />
-              </button>
-
-              <ul className="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700">
-                <li className="flex">
-                  <a
-                    className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                    href="/#"
-                  >
-                    <svg
-                      className="w-4 h-4 mr-3"
-                      aria-hidden="true"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    <span>Profile</span>
-                  </a>
-                </li>
-                <li className="flex">
-                  <a
-                    className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                    href="/#"
-                  >
-                    <svg
-                      className="w-4 h-4 mr-3"
-                      aria-hidden="true"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                      <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span>Settings</span>
-                  </a>
-                </li>
-                <li className="flex">
-                  <a
-                    className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                    href="/#"
-                  >
-                    <svg
-                      className="w-4 h-4 mr-3"
-                      aria-hidden="true"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                    </svg>
-                    <span>Log out</span>
-                  </a>
-                </li>
-              </ul>
-            </li> */}
-          </ul>
+        </div>
+        <div className="navbar-center">
+          <a className="btn btn-ghost normal-case text-xl">Bill Compute App</a>
+        </div>
+        <div className="navbar-end">
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img src="https://placeimg.com/80/80/people" />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </header>
     </>
   )
+}
+
+const styles = {
+  li: "relative px-3 py-2",
+  link: "inline-flex items-center w-full text-sm font-semibold transition-colors duration-150",
+  span: "ml-4 text-lg",
+  ul: "menu w-[60vw] md:w-[25vw] dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box"
 }
 
 export default Header
