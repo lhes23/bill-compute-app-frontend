@@ -1,13 +1,14 @@
-import React from "react"
+import React, { useState } from "react"
 import SideBar from "./layouts/SideBar"
 import Main from "./views/pages/Main"
 import Header from "./layouts/Header"
 import { GiHamburgerMenu } from "react-icons/gi"
 
 function App() {
+  const [theme, setTheme] = useState<string>("halloween")
   return (
     <>
-      <div className="drawer">
+      <div className="drawer" data-theme={theme}>
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* <!-- Page content here --> */}
