@@ -3,7 +3,7 @@ import { electricData, waterData } from "./chartData"
 import HouseCard from "./components/HouseCard"
 import LineChart from "./components/LineChart"
 import TenantTable from "./components/TenantTable"
-import axios from "axios"
+import client from "../../../axios"
 
 interface IHouses {
   id: string
@@ -16,8 +16,8 @@ const Dashboard = () => {
   const [houses, setHouses] = useState<IHouses[]>([])
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/houses/")
+    client
+      .get("houses/")
       .then((res) => setHouses(res.data))
       .catch((err) => console.log(err))
   }, [])
