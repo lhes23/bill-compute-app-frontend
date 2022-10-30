@@ -1,13 +1,13 @@
 import React, { FormEvent, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { IHouseReading } from "../../../interfaces"
+import { IHouseReading } from "interfaces"
 import {
   setHousesReadings,
   setPesoPer,
   setTotalReadings
-} from "../../../redux/houseSlice"
-import { RootState } from "../../../store"
+} from "redux/houseSlice"
+import { RootState } from "store"
 import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
 

@@ -1,10 +1,9 @@
 import React from "react"
-
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../../../../store"
-import { setTotalReadings } from "../../../../redux/houseSlice"
+import { RootState } from "store"
+import { setTotalReadings } from "redux/houseSlice"
 
 interface IProps {
   dueDateLocal: Date
@@ -82,7 +81,6 @@ const TotalReading = ({
               id="electric"
               type="radio"
               name="bill"
-              // defaultValue="Electric"
               value="Electric"
               className={styles.radio}
               defaultChecked
@@ -102,7 +100,6 @@ const TotalReading = ({
               id="water"
               type="radio"
               name="bill"
-              // defaultValue="Water"
               value="Water"
               className={styles.radio}
               onChange={(e) =>

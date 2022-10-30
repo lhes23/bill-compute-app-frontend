@@ -1,5 +1,5 @@
 import React from "react"
-import { months } from "../../../../interfaces"
+import { months } from "interfaces"
 
 import {
   Chart as ChartJS,
