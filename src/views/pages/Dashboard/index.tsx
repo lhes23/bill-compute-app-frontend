@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react"
 import HouseCard from "./components/HouseCard"
 import AreaChart from "./components/AreaChart"
 import TenantTable from "./components/TenantTable"
-import client from "../../../axiosClient/client"
-import { IHouse } from "../../../interfaces"
+// import client from "../../../axiosClient/client"
+import client from "axiosClient/client"
+import { IHouse } from "interfaces"
 import { AxiosError, AxiosResponse } from "axios"
 
 const Dashboard = () => {
