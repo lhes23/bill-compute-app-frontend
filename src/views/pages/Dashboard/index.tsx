@@ -3,27 +3,25 @@ import { electricData, waterData } from "./chartData"
 import HouseCard from "./components/HouseCard"
 import LineChart from "./components/LineChart"
 import TenantTable from "./components/TenantTable"
+import axios from "axios"
 
-export const houses = [
-  { id: "1", name: "House A", isOccupied: true, color: "green" },
-  { id: "2", name: "House B", isOccupied: false, color: "orange" },
-  { id: "3", name: "House C", isOccupied: false, color: "blue" },
-  { id: "4", name: "House D", isOccupied: true, color: "red" }
-]
+interface IHouses {
+  id: string
+  name: string
+  isOccupied: boolean
+  color: string
+}
 
 const Dashboard = () => {
-  const [data, setData] = useState([])
+  const [houses, setHouses] = useState<IHouses[]>([])
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("http://127.0.0.1:8000/api/houses/")
-      const d = await res.json()
-      setData(d)
-    }
-    fetchData()
+    axios
+      .get("http://127.0.0.1:8000/api/houses/")
+      .then((res) => setHouses(res.data))
+      .catch((err) => console.log(err))
   }, [])
 
-  console.log(data)
   return (
     <>
       <h2 className="my-6 text-2xl font-semibold">Dashboard</h2>
