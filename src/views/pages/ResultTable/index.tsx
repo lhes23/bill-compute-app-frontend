@@ -9,14 +9,14 @@ const ResultTable = () => {
   console.log(store.totalReadings)
 
   return (
-    <div data-theme="light">
+    <div data-theme="">
       <h2 className="my-6 text-2xl font-semibold">Result</h2>
       {store.houses.map((house) => (
         <div
           key={house.name}
-          className="max-w-md mx-auto my-4 rounded-xl shadow-lg overflow-hidden md:max-w-2xl bg-gradient-to-tr from-orange-300 via-purple-500 to-lime-300"
+          className="max-w-md mx-auto my-4 rounded-xl shadow-lg overflow-hidden md:max-w-2xl"
         >
-          <div className="">
+          <div className="bg-gray-50">
             <div className="px-2 py-4">
               <div className="uppercase tracking-wide text-smfont-semibold">
                 Due Date: {dueDate}
@@ -31,7 +31,7 @@ const ResultTable = () => {
                       <table className="min-w-full">
                         <thead className="bg-white border-b"></thead>
                         <tbody>
-                          <tr className="bg-white border-b">
+                          <tr className="bg-gray-100 border-b">
                             <td className={styles.divLabel} colSpan={2}>
                               From {startDate} to {endDate}
                             </td>
@@ -88,8 +88,8 @@ const ResultTable = () => {
 
 const styles = {
   divContainer: "grid grid-cols-3 gap-2",
-  divLabel: "text-md text-gray-900 px-6 py-4 text-left",
-  divValue: "text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+  divLabel: "py-4 text-left",
+  divValue: "text-md font-light px-6 py-4 whitespace-nowrap"
 }
 
 export default ResultTable
