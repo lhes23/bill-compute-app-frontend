@@ -1,6 +1,36 @@
-import React from "react"
+import { AxiosError, AxiosResponse } from "axios"
+import client from "axiosClient/client"
+import React, { useEffect, useState } from "react"
+import Select from "react-select"
+
+interface IOption {
+  id: string
+  name: string
+  is_occupied: boolean
+  color: string
+}
 
 const TenantForm = () => {
+  const [options, setOptions] = useState<IOption[] | any>([])
+
+  useEffect(() => {
+    client
+      .get("houses/")
+      .then((res: AxiosResponse) => {
+        let opt: any = []
+        res.data.map((d: any) => {
+          return opt.push({
+            label: d.name,
+            value: d.id
+          })
+        })
+
+        console.log(opt)
+        setOptions(opt)
+      })
+      .catch((err: AxiosError) => console.log(err))
+  }, [])
+
   return (
     <>
       <div>
@@ -38,12 +68,7 @@ const TenantForm = () => {
               <label className={styles.label}>
                 <span className="">House</span>
               </label>
-              <input
-                type="text"
-                id="total_reading"
-                className={styles.input}
-                placeholder=""
-              />
+              <Select options={options} />
             </div>
 
             <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
