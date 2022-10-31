@@ -31,6 +31,12 @@ const Header = ({
                 </Link>
               </li>
               <li className={styles.li}>
+                <Link className={styles.link} to="/add-tenant">
+                  <FaWpforms size={25} />
+                  <span className={styles.span}>Add a Tenant</span>
+                </Link>
+              </li>
+              <li className={styles.li}>
                 <label tabIndex={0} className={styles.link}>
                   <FaWpforms size={25} />
                   <span className={styles.span}>Themes</span>
