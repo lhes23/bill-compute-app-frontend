@@ -5,6 +5,7 @@ import TenantTable from "./components/TenantTable"
 import client from "axiosClient/client"
 import { IHouse } from "interfaces"
 import { AxiosError, AxiosResponse } from "axios"
+import PageLayout from "layouts/PageLayout"
 
 const Dashboard = () => {
   const [houses, setHouses] = useState<IHouse[]>([])
@@ -40,35 +41,35 @@ const Dashboard = () => {
 
   return (
     <>
-      <h2 className="my-6 text-2xl font-semibold">Dashboard</h2>
-
-      {/* Cards */}
-      <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4 content-center">
-        {houses.map((house) => (
-          <HouseCard key={house.id} house={house} />
-        ))}
-      </div>
-
-      <div>
-        <h3 className="my-6 text-xl font-semibold">Yearly Consumptions</h3>
-        <div className="md:grid grid-cols-2">
-          <AreaChart
-            datasets={electricData}
-            label="Electric Bill"
-            color="green"
-            fillColor="rgba(0,87,0,0.3)"
-          />
-          <AreaChart
-            datasets={waterData}
-            label="Water Bill"
-            color="blue"
-            fillColor="rgba(0,0,51,0.5)"
-          />
+      <PageLayout title="Dashboards">
+        {/* Cards */}
+        <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4 content-center">
+          {houses.map((house) => (
+            <HouseCard key={house.id} house={house} />
+          ))}
         </div>
-      </div>
 
-      <h3 className="my-6 text-xl font-semibold">Active Tenants</h3>
-      <TenantTable />
+        <div>
+          <h3 className="my-6 text-xl font-semibold">Yearly Consumptions</h3>
+          <div className="md:grid grid-cols-2">
+            <AreaChart
+              datasets={electricData}
+              label="Electric Bill"
+              color="green"
+              fillColor="rgba(0,87,0,0.3)"
+            />
+            <AreaChart
+              datasets={waterData}
+              label="Water Bill"
+              color="blue"
+              fillColor="rgba(0,0,51,0.5)"
+            />
+          </div>
+        </div>
+
+        <h3 className="my-6 text-xl font-semibold">Active Tenants</h3>
+        <TenantTable />
+      </PageLayout>
     </>
   )
 }

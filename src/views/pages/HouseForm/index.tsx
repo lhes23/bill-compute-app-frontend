@@ -11,6 +11,7 @@ import { RootState } from "store"
 import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
 import client from "axiosClient/client"
+import PageLayout from "layouts/PageLayout"
 
 const HouseForm = () => {
   const navigate = useNavigate()
@@ -122,36 +123,33 @@ const HouseForm = () => {
 
   return (
     <>
-      <div>
-        <h2 className="my-6 text-2xl font-semibold">Add a Reading</h2>
-        <div className="flex justify-center">
-          <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md md:w-[50vw]">
-            <TotalReading
-              dueDateLocal={dueDateLocal}
-              setDueDateLocal={setDueDateLocal}
-              startDateLocal={startDateLocal}
-              setStartDateLocal={setStartDateLocal}
-              endDateLocal={endDateLocal}
-              setEndDateLocal={setEndDateLocal}
-            />
+      <PageLayout title="Add a Reading">
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md md:w-[50vw]">
+          <TotalReading
+            dueDateLocal={dueDateLocal}
+            setDueDateLocal={setDueDateLocal}
+            startDateLocal={startDateLocal}
+            setStartDateLocal={setStartDateLocal}
+            endDateLocal={endDateLocal}
+            setEndDateLocal={setEndDateLocal}
+          />
 
-            <HouseComponent house={houseA} setHouse={setHouseA} />
-            <HouseComponent house={houseB} setHouse={setHouseB} />
-            <HouseComponent house={houseC} setHouse={setHouseC} />
-            <HouseComponent house={houseD} setHouse={setHouseD} />
+          <HouseComponent house={houseA} setHouse={setHouseA} />
+          <HouseComponent house={houseB} setHouse={setHouseB} />
+          <HouseComponent house={houseC} setHouse={setHouseC} />
+          <HouseComponent house={houseD} setHouse={setHouseD} />
 
-            <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
-              <button
-                type="submit"
-                className="btn btn-outline btn-primary btn-wide"
-                onClick={formHandler}
-              >
-                Submit
-              </button>
-            </div>
+          <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
+            <button
+              type="submit"
+              className="btn btn-outline btn-primary btn-wide"
+              onClick={formHandler}
+            >
+              Submit
+            </button>
           </div>
         </div>
-      </div>
+      </PageLayout>
     </>
   )
 }
