@@ -1,5 +1,5 @@
 import React from "react"
-import { IHouseReading } from "../../../../interfaces"
+import { IHouseReading } from "interfaces"
 
 interface IProps {
   house: IHouseReading
