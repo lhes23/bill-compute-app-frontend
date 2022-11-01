@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react"
+import React, { FormEvent, useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { IHouseReading } from "interfaces"
@@ -10,6 +10,7 @@ import {
 import { RootState } from "store"
 import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
+import client from "axiosClient/client"
 
 const HouseForm = () => {
   const navigate = useNavigate()
@@ -22,24 +23,28 @@ const HouseForm = () => {
 
   const [houseA, setHouseA] = useState<IHouseReading>({
     name: "House A",
+    house_id: 1,
     tenant: "",
     previous: 0,
     present: 0
   })
   const [houseB, setHouseB] = useState<IHouseReading>({
     name: "House B",
+    house_id: 2,
     tenant: "",
     previous: 0,
     present: 0
   })
   const [houseC, setHouseC] = useState<IHouseReading>({
     name: "House C",
+    house_id: 3,
     tenant: "",
     previous: 0,
     present: 0
   })
   const [houseD, setHouseD] = useState<IHouseReading>({
     name: "House D",
+    house_id: 4,
     tenant: "",
     previous: 0,
     present: 0
@@ -121,7 +126,6 @@ const HouseForm = () => {
         <h2 className="my-6 text-2xl font-semibold">Add a Reading</h2>
         <div className="flex justify-center">
           <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md md:w-[50vw]">
-            {/* <form onSubmit={formHandler}> */}
             <TotalReading
               dueDateLocal={dueDateLocal}
               setDueDateLocal={setDueDateLocal}
@@ -145,7 +149,6 @@ const HouseForm = () => {
                 Submit
               </button>
             </div>
-            {/* </form> */}
           </div>
         </div>
       </div>

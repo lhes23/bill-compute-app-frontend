@@ -1,5 +1,6 @@
 export interface IHouseReading {
   name: string
+  house_id: number
   tenant: string
   previous: number
   present: number
