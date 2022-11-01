@@ -3,7 +3,7 @@ import Main from "./views/pages/Main"
 import Header from "./layouts/Header"
 
 function App() {
-  const [theme, setTheme] = useState<string>("halloween")
+  const [theme, setTheme] = useState<string>("light")
 
   return (
     <>
