@@ -2,6 +2,7 @@ import { AxiosError, AxiosResponse } from "axios"
 import client from "axiosClient/client"
 import React, { useEffect, useState } from "react"
 import Select from "react-select"
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai"
 
 interface IOption {
   id: string
@@ -17,6 +18,8 @@ const TenantForm = () => {
   const [fb, setFb] = useState<string>("")
   const [houseId, setHouseId] = useState<number>()
 
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
+
   useEffect(() => {
     client
       .get("houses/")
@@ -28,15 +31,20 @@ const TenantForm = () => {
             value: d.id
           })
         })
-
-        console.log(opt)
         setOptions(opt)
       })
       .catch((err: AxiosError) => console.log(err))
   }, [])
 
   const submitHandler = () => {
-    console.log({ name, fb, houseId })
+    client
+      .post("tenants/", { name, fb_messenger: fb, house_id: houseId })
+      .then((res) => setIsSuccess(true))
+      .catch((err) => setIsSuccess(false))
+
+    setName("")
+    setFb("")
+    setHouseId(0)
   }
 
   return (
@@ -45,6 +53,22 @@ const TenantForm = () => {
         <h2 className="my-6 text-2xl font-semibold">Add a Tenant</h2>
         <div className="flex justify-center">
           <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md md:w-[50vw]">
+            {isSuccess && (
+              <div
+                className={`alert alert-${
+                  isSuccess ? "success" : "error"
+                } shadow-lg`}
+              >
+                <div>
+                  {isSuccess && <AiOutlineCheckCircle />}
+                  {isSuccess && <span>Successfully Added</span>}
+                  {!isSuccess && isSuccess != null && <AiOutlineCloseCircle />}
+                  {!isSuccess && isSuccess != null && (
+                    <span>There is an Error</span>
+                  )}
+                </div>
+              </div>
+            )}
             <h4 className="text-2xl my-4">Tenant Info</h4>
             <div className="grid grid-cols-2 gap-2 md:gap-4 w-full">
               <div className="relative">
