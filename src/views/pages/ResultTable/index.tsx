@@ -8,8 +8,6 @@ const ResultTable = () => {
   const store = useSelector((state: RootState) => state.houses)
   const { dueDate, startDate, endDate, billType } = store.totalReadings
 
-  console.log(store.totalReadings)
-
   return (
     <>
       <h2 className="my-6 text-2xl font-semibold">Result</h2>

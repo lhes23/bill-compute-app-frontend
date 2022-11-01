@@ -13,6 +13,10 @@ interface IOption {
 const TenantForm = () => {
   const [options, setOptions] = useState<IOption[] | any>([])
 
+  const [name, setName] = useState<string>("")
+  const [fb, setFb] = useState<string>("")
+  const [houseId, setHouseId] = useState<number>()
+
   useEffect(() => {
     client
       .get("houses/")
@@ -30,6 +34,10 @@ const TenantForm = () => {
       })
       .catch((err: AxiosError) => console.log(err))
   }, [])
+
+  const submitHandler = () => {
+    console.log({ name, fb, houseId })
+  }
 
   return (
     <>
@@ -49,6 +57,8 @@ const TenantForm = () => {
                   id="previous_reading"
                   className={styles.input}
                   placeholder=""
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="relative">
@@ -61,6 +71,8 @@ const TenantForm = () => {
                   id="present_reading"
                   className={styles.input}
                   placeholder=""
+                  value={fb}
+                  onChange={(e) => setFb(e.target.value)}
                 />
               </div>
             </div>
@@ -68,13 +80,18 @@ const TenantForm = () => {
               <label className={styles.label}>
                 <span className="">House</span>
               </label>
-              <Select options={options} />
+              <Select
+                options={options}
+                value={options.filter((obj: any) => obj.value === houseId)}
+                onChange={(e) => setHouseId(e.value)}
+              />
             </div>
 
             <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
               <button
                 type="submit"
                 className="btn btn-outline btn-primary btn-wide"
+                onClick={submitHandler}
               >
                 Submit
               </button>
