@@ -14,7 +14,7 @@ const Tenants = () => {
     client
       .get("tenants/")
       .then((res: AxiosResponse) => {
-        // console.log(res.data.tenants)
+        console.log(res.data)
         dispatch(setAllTenants(res.data))
       })
       .catch((err: AxiosError) => console.log(err))
@@ -25,21 +25,13 @@ const Tenants = () => {
       <div className="flex justify-center">
         <table className="table table-zebra">
           <thead>
-            <th>
+            <tr>
               <td>Name</td>
-            </th>
-            <th>
               <td>FB Messenger</td>
-            </th>
-            <th>
               <td>House</td>
-            </th>
-            <th>
               <td>Status</td>
-            </th>
-            <th>
               <td>Date Started</td>
-            </th>
+            </tr>
           </thead>
           <tbody>
             {store.tenants?.map((tenant) => (
@@ -47,7 +39,7 @@ const Tenants = () => {
                 <td>{tenant.name}</td>
                 <td>{tenant.fb_messenger}</td>
                 <td>{tenant.house_id}</td>
-                <td>{tenant.is_active}</td>
+                <td>{tenant.is_active ? "Active" : "Inactive"}</td>
                 <td>{tenant.date_started}</td>
               </tr>
             ))}
