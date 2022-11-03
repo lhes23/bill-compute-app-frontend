@@ -6,6 +6,7 @@ import client from "axiosClient/client"
 import { IHouse } from "interfaces"
 import { AxiosError, AxiosResponse } from "axios"
 import PageLayout from "layouts/PageLayout"
+import TotalHouseReadings from "./components/TotalHouseReadings"
 
 const Dashboard = () => {
   const [houses, setHouses] = useState<IHouse[]>([])
@@ -66,8 +67,7 @@ const Dashboard = () => {
             />
           </div>
         </div>
-
-        <h3 className="my-6 text-xl font-semibold">Active Tenants</h3>
+        <TotalHouseReadings />
         <TenantTable />
       </PageLayout>
     </>

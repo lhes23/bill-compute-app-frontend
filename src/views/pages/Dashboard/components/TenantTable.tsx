@@ -3,6 +3,7 @@ import React from "react"
 const TenantTable = () => {
   return (
     <>
+      <h3 className="my-6 text-xl font-semibold">Active Tenants</h3>
       <div className="w-full overflow-hidden rounded-lg shadow-xs">
         <div className="w-full overflow-x-auto">
           <table className="w-full whitespace-no-wrap">

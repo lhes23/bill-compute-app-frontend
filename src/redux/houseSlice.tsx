@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 
 interface IInitialState {
   houses: {
+    house_id: number
+    tenant_id: number
     name: string
     tenant: string
     previous: number
@@ -26,6 +28,8 @@ interface IInitialState {
 const initialState: IInitialState = {
   houses: [
     {
+      house_id: 0,
+      tenant_id: 0,
       name: "",
       tenant: "",
       previous: 0,
@@ -36,7 +40,7 @@ const initialState: IInitialState = {
   ],
   pesoPer: 0,
   totalReadings: {
-    name: "main",
+    name: "wholeHouse",
     billType: "Electric",
     previous: 0,
     present: 0,

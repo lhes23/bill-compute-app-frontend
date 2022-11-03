@@ -3,11 +3,45 @@ import { useSelector } from "react-redux"
 import { RootState } from "store"
 import { FcElectricity } from "react-icons/fc"
 import { IoWaterSharp } from "react-icons/io5"
+import { useNavigate } from "react-router-dom"
+import client from "axiosClient/client"
 
 const ResultTable = () => {
+  const navigate = useNavigate()
   const store = useSelector((state: RootState) => state.houses)
   const { dueDate, startDate, endDate, billType } = store.totalReadings
 
+  const { bill, consumption, name, present, previous } = store.totalReadings
+
+  const confirmHandler = () => {
+    console.log({
+      totalReadings: store.totalReadings,
+      houses: store.houses,
+      pesoPer: store.pesoPer
+    })
+    client
+      .post("readings/", {
+        house_id: 5,
+        tenant_id: 6,
+        bill_type: billType,
+        due_date: dueDate,
+        start_date: startDate,
+        end_date: endDate,
+        previous_reading: previous,
+        present_reading: present,
+        consumption,
+        peso_per_consumption: store.pesoPer,
+        bill,
+        status: "unpaid"
+      })
+      .then((res) => {
+        if (!res.status) {
+          console.log("Something went wrong")
+        }
+        navigate("/")
+      })
+      .catch((err) => console.log(err))
+  }
   return (
     <>
       <h2 className="my-6 text-2xl font-semibold">Result</h2>
@@ -106,6 +140,20 @@ const ResultTable = () => {
           </div>
         </div>
       ))}
+      <div className="flex justify-center mb-8 p-4">
+        <button
+          className="btn btn-outline btn-warning btn-wide mx-2"
+          onClick={() => navigate("/add-reading")}
+        >
+          Go Back
+        </button>
+        <button
+          onClick={confirmHandler}
+          className="btn btn-primary btn-wide mx-2"
+        >
+          Confirm
+        </button>
+      </div>
     </>
   )
 }

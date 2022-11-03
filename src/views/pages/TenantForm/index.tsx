@@ -51,73 +51,75 @@ const TenantForm = () => {
   return (
     <>
       <PageLayout title="Add a Tenant">
-        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md md:w-[50vw]">
-          {isSuccess && (
-            <div
-              className={`alert alert-${
-                isSuccess ? "success" : "error"
-              } shadow-lg`}
-            >
-              <div>
-                {isSuccess && <AiOutlineCheckCircle />}
-                {isSuccess && <span>Successfully Added</span>}
-                {!isSuccess && isSuccess != null && <AiOutlineCloseCircle />}
-                {!isSuccess && isSuccess != null && (
-                  <span>There is an Error</span>
-                )}
+        <div className="flex justify-center">
+          <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md md:w-[50vw]">
+            {isSuccess && (
+              <div
+                className={`alert alert-${
+                  isSuccess ? "success" : "error"
+                } shadow-lg`}
+              >
+                <div>
+                  {isSuccess && <AiOutlineCheckCircle />}
+                  {isSuccess && <span>Successfully Added</span>}
+                  {!isSuccess && isSuccess != null && <AiOutlineCloseCircle />}
+                  {!isSuccess && isSuccess != null && (
+                    <span>There is an Error</span>
+                  )}
+                </div>
+              </div>
+            )}
+            <h4 className="text-2xl my-4">Tenant Info</h4>
+            <div className="grid grid-cols-2 gap-2 md:gap-4 w-full">
+              <div className="relative">
+                <label className={styles.label}>
+                  <span className="">Name</span>
+                </label>
+
+                <input
+                  type="text"
+                  id="previous_reading"
+                  className={styles.input}
+                  placeholder=""
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="relative">
+                <label className={styles.label}>
+                  <span className="">FB Messenger</span>
+                </label>
+
+                <input
+                  type="text"
+                  id="present_reading"
+                  className={styles.input}
+                  placeholder=""
+                  value={fb}
+                  onChange={(e) => setFb(e.target.value)}
+                />
               </div>
             </div>
-          )}
-          <h4 className="text-2xl my-4">Tenant Info</h4>
-          <div className="grid grid-cols-2 gap-2 md:gap-4 w-full">
-            <div className="relative">
+            <div className="relative my-4">
               <label className={styles.label}>
-                <span className="">Name</span>
+                <span className="">House</span>
               </label>
-
-              <input
-                type="text"
-                id="previous_reading"
-                className={styles.input}
-                placeholder=""
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+              <Select
+                options={options}
+                value={options.filter((obj: any) => obj.value === houseId)}
+                onChange={(e) => setHouseId(e.value)}
               />
             </div>
-            <div className="relative">
-              <label className={styles.label}>
-                <span className="">FB Messenger</span>
-              </label>
 
-              <input
-                type="text"
-                id="present_reading"
-                className={styles.input}
-                placeholder=""
-                value={fb}
-                onChange={(e) => setFb(e.target.value)}
-              />
+            <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
+              <button
+                type="submit"
+                className="btn btn-outline btn-primary btn-wide"
+                onClick={submitHandler}
+              >
+                Submit
+              </button>
             </div>
-          </div>
-          <div className="relative my-4">
-            <label className={styles.label}>
-              <span className="">House</span>
-            </label>
-            <Select
-              options={options}
-              value={options.filter((obj: any) => obj.value === houseId)}
-              onChange={(e) => setHouseId(e.value)}
-            />
-          </div>
-
-          <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
-            <button
-              type="submit"
-              className="btn btn-outline btn-primary btn-wide"
-              onClick={submitHandler}
-            >
-              Submit
-            </button>
           </div>
         </div>
       </PageLayout>
