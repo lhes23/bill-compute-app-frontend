@@ -15,7 +15,7 @@ export interface Reading extends IHouseReading {
 }
 
 export interface IHouse {
-  id: string
+  id: number
   name: string
   is_occupied: boolean
   color: string
@@ -35,3 +35,29 @@ export const months = [
   "Nov",
   "Dec"
 ]
+
+export interface IInitialState {
+  houses: {
+    house_id: number
+    tenant_id: number
+    name: string
+    tenant: string
+    previous: number
+    present: number
+    consumption: number
+    bill: number
+  }[]
+  pesoPer: number
+  totalReadings: {
+    name: string
+    billType: string
+    previous: number
+    present: number
+    consumption: number
+    bill: number
+    dueDate: string
+    startDate: string
+    endDate: string
+  }
+  allHouses: IHouse[]
+}

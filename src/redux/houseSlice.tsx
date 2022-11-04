@@ -1,29 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import client from "axiosClient/client"
+import { IInitialState } from "interfaces"
 
-interface IInitialState {
-  houses: {
-    house_id: number
-    tenant_id: number
-    name: string
-    tenant: string
-    previous: number
-    present: number
-    consumption: number
-    bill: number
-  }[]
-  pesoPer: number
-  totalReadings: {
-    name: string
-    billType: string
-    previous: number
-    present: number
-    consumption: number
-    bill: number
-    dueDate: string
-    startDate: string
-    endDate: string
+import { useDispatch, useSelector } from "react-redux"
+import type { TypedUseSelectorHook } from "react-redux"
+import { AppDispatch, RootState } from "store"
+
+// Use throughout your app instead of plain `useDispatch` and `useSelector`
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+
+export const getAllHouses = createAsyncThunk(
+  "appHouses/getAllHouses",
+  async () => {
+    try {
+      const allHouses = await client.get("houses")
+      const { data } = await allHouses
+      return { allHouses: data }
+    } catch (error) {
+      console.log(error)
+    }
   }
-}
+)
 
 const initialState: IInitialState = {
   houses: [
@@ -49,7 +47,15 @@ const initialState: IInitialState = {
     dueDate: "",
     startDate: "",
     endDate: ""
-  }
+  },
+  allHouses: [
+    {
+      id: 0,
+      name: "",
+      is_occupied: false,
+      color: ""
+    }
+  ]
 }
 
 export const houseSlice = createSlice({
@@ -65,6 +71,12 @@ export const houseSlice = createSlice({
     setTotalReadings: (state, action) => {
       state.totalReadings = action.payload
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getAllHouses.fulfilled, (state, action) => {
+      console.log(action.payload)
+      state.allHouses = action.payload?.allHouses
+    })
   }
 })
 

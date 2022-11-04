@@ -25,7 +25,6 @@ const TotalHouseReadings = () => {
     client
       .get("readings/")
       .then((res) => {
-        console.log(res.data)
         setReadings(res.data)
       })
       .catch((err) => console.log(err))
@@ -39,7 +38,7 @@ const TotalHouseReadings = () => {
           <table className="w-full whitespace-no-wrap">
             <thead>
               <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                <th className="px-4 py-3">Client</th>
+                <th className="px-4 py-3">Name</th>
                 <th className="px-4 py-3">Amount</th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3">Date</th>
@@ -66,7 +65,7 @@ const TotalHouseReadings = () => {
                         />
                       </div>
                       <div>
-                        <p className="font-semibold">{reading.due_date}</p>
+                        <p className="font-semibold">{reading.bill_type}</p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           10x Developer
                         </p>
@@ -79,7 +78,7 @@ const TotalHouseReadings = () => {
                       {reading.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm">6/10/2020</td>
+                  <td className="px-4 py-3 text-sm">{reading.due_date}</td>
                 </tr>
               ))}
             </tbody>

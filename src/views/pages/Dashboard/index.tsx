@@ -7,17 +7,16 @@ import { IHouse } from "interfaces"
 import { AxiosError, AxiosResponse } from "axios"
 import PageLayout from "layouts/PageLayout"
 import TotalHouseReadings from "./components/TotalHouseReadings"
+import { getAllHouses, useAppDispatch, useAppSelector } from "redux/houseSlice"
 
 const Dashboard = () => {
-  const [houses, setHouses] = useState<IHouse[]>([])
   const [electricData, setElectricData] = useState<number[]>([])
   const [waterData, setWaterData] = useState<number[]>([])
+  const dispatch = useAppDispatch()
+  const store = useAppSelector((state) => state.houses)
 
   useEffect(() => {
-    client
-      .get("houses/")
-      .then((res: AxiosResponse) => setHouses(res.data))
-      .catch((err: AxiosError) => console.log(err))
+    dispatch(getAllHouses())
 
     client
       .get("yearly-bills/")
@@ -45,7 +44,7 @@ const Dashboard = () => {
       <PageLayout title="Dashboards">
         {/* Cards */}
         <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4 content-center">
-          {houses.map((house) => (
+          {store?.allHouses.map((house) => (
             <HouseCard key={house.id} house={house} />
           ))}
         </div>

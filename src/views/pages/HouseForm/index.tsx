@@ -3,20 +3,26 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { IHouseReading } from "interfaces"
 import {
+  getAllHouses,
   setHousesReadings,
   setPesoPer,
   setTotalReadings
 } from "redux/houseSlice"
-import { RootState } from "store"
+import { AppDispatch, RootState } from "store"
 import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
-import client from "axiosClient/client"
 import PageLayout from "layouts/PageLayout"
 
 const HouseForm = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const store = useSelector((state: RootState) => state.houses)
+
+  useEffect(() => {
+    dispatch(getAllHouses())
+  }, [])
+
+  console.log({ store })
 
   const [dueDateLocal, setDueDateLocal] = useState<Date>(new Date())
   const [startDateLocal, setStartDateLocal] = useState<Date>(new Date())
