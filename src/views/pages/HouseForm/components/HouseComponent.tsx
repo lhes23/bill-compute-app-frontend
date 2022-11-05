@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { IHouseReading } from "interfaces"
-import client from "axiosClient/client"
+import { useAppSelector } from "store"
 
 interface IProps {
   house: IHouseReading
@@ -8,20 +8,14 @@ interface IProps {
 }
 
 const HouseComponent = ({ house, setHouse }: IProps) => {
-  // useEffect(() => {
-  //   client
-  //     .get("tenants")
-  //     .then((res) => {
-  //       const tenants = res.data
-  //       setHouse({
-  //         ...house,
-  //         tenant: tenants
-  //           .filter((tenant: any) => tenant.house_id === house.house_id)
-  //           .map((c: any) => c.name)
-  //       })
-  //     })
-  //     .catch((err) => console.log(err))
-  // }, [])
+  const store = useAppSelector((state) => state.tenants)
+  useEffect(() => {
+    store.tenants.map((tenant) => {
+      if (tenant.house_id === house.house_id && tenant.is_active) {
+        setHouse({ ...house, tenant: tenant.name })
+      }
+    })
+  }, [])
 
   return (
     <>

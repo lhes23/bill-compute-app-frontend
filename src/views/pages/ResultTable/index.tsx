@@ -10,12 +10,24 @@ const ResultTable = () => {
   const navigate = useNavigate()
   const store = useSelector((state: RootState) => state)
   const { houses, pesoPer } = store.houses
-  const { dueDate, startDate, endDate, billType } = store.houses.totalReadings
-
-  // const { bill, consumption, name, present, previous } = store.totalReadings
+  const { dueDate, startDate, endDate, billType, bill } =
+    store.houses.totalReadings
 
   const confirmHandler = () => {
-    console.log({ store })
+    client
+      .post("yearly-bills/", {
+        year: endDate.split(" ")[3],
+        month: endDate.split(" ")[1],
+        bill_type: billType,
+        bill
+      })
+      .then((res) => {
+        if (!res.status) {
+          console.log("Something went wrong")
+        }
+        navigate("/")
+      })
+      .catch((err) => console.log(err))
 
     // client
     //   .post("readings/", {
@@ -32,13 +44,13 @@ const ResultTable = () => {
     //     bill,
     //     status: "unpaid"
     //   })
-    //   .then((res) => {
-    //     if (!res.status) {
-    //       console.log("Something went wrong")
-    //     }
-    //     navigate("/")
-    //   })
-    //   .catch((err) => console.log(err))
+    // .then((res) => {
+    //   if (!res.status) {
+    //     console.log("Something went wrong")
+    //   }
+    //   navigate("/")
+    // })
+    // .catch((err) => console.log(err))
   }
   return (
     <>

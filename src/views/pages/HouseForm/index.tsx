@@ -35,16 +35,6 @@ const HouseForm = () => {
       .map((c) => c.id)
   }
 
-  const getTenantName = (houseId: number) => {
-    return tenants.tenants
-      .filter((tenant) => {
-        if (tenant.is_active && tenant.house_id === houseId) {
-          return { name: tenant.name }
-        }
-      })
-      .map((c: any) => c.name)
-  }
-
   const [houseA, setHouseA] = useState<IHouseReading>({
     name: "House A",
     house_id: getHouseId("House A")[0],
