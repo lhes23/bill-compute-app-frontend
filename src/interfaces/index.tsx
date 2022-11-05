@@ -36,30 +36,27 @@ export const months = [
   "Dec"
 ]
 
-export interface IInitialState {
-  houses: {
-    house_id: number
-    tenant_id: number
-    name: string
-    tenant: string
-    previous: number
-    present: number
-    consumption: number
-    bill: number
-  }[]
-  pesoPer: number
-  totalReadings: {
-    name: string
-    billType: string
-    previous: number
-    present: number
-    consumption: number
-    bill: number
-    dueDate: string
-    startDate: string
-    endDate: string
-  }
-  allHouses: IHouse[]
+export interface IHouseInitial {
+  house_id: number
+  tenant_id: number
+  name: string
+  tenant: string
+  previous: number
+  present: number
+  consumption: number
+  bill: number
+}
+
+export interface ITotalReading {
+  name: string
+  billType: string
+  previous: number
+  present: number
+  consumption: number
+  bill: number
+  dueDate: string
+  startDate: string
+  endDate: string
 }
 
 export interface ITenant {

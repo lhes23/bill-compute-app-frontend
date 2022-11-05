@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import client from "axiosClient/client"
-import { IInitialState } from "interfaces"
+import { IHouse, IHouseInitial, ITotalReading } from "interfaces"
 
 export const getAllHouses = createAsyncThunk(
   "appHouses/getAllHouses",
@@ -14,6 +14,13 @@ export const getAllHouses = createAsyncThunk(
     }
   }
 )
+
+interface IInitialState {
+  houses: IHouseInitial[]
+  pesoPer: number
+  totalReadings: ITotalReading
+  allHouses: IHouse[]
+}
 
 const initialState: IInitialState = {
   houses: [
