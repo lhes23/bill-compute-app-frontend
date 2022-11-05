@@ -1,5 +1,5 @@
 import React, { FormEvent, useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+
 import { useNavigate } from "react-router-dom"
 import { IHouseReading } from "interfaces"
 import {
@@ -8,58 +8,82 @@ import {
   setPesoPer,
   setTotalReadings
 } from "redux/houseSlice"
-import { AppDispatch, RootState } from "store"
 import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
 import PageLayout from "layouts/PageLayout"
+import { useAppDispatch, useAppSelector } from "store"
+import { getAllTenants } from "redux/tenantSlice"
 
 const HouseForm = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.houses)
+  const dispatch = useAppDispatch()
+  const { houses, tenants } = useAppSelector((state) => state)
+  const { allHouses, totalReadings } = houses
 
   useEffect(() => {
     dispatch(getAllHouses())
-  }, [])
-
-  console.log({ store })
+    dispatch(getAllTenants())
+  }, [dispatch])
 
   const [dueDateLocal, setDueDateLocal] = useState<Date>(new Date())
   const [startDateLocal, setStartDateLocal] = useState<Date>(new Date())
   const [endDateLocal, setEndDateLocal] = useState<Date>(new Date())
 
+  const getHouseId = (house: string) => {
+    return allHouses
+      .filter((allHouse) => allHouse.name === house)
+      .map((c) => c.id)
+  }
+
+  const getTenantName = (houseId: number) => {
+    return tenants.tenants
+      .filter((tenant) => {
+        if (tenant.is_active && tenant.house_id === houseId) {
+          return { name: tenant.name }
+        }
+      })
+      .map((c: any) => c.name)
+  }
+
   const [houseA, setHouseA] = useState<IHouseReading>({
     name: "House A",
-    house_id: 1,
+    house_id: getHouseId("House A")[0],
     tenant: "",
     previous: 0,
     present: 0
   })
+
   const [houseB, setHouseB] = useState<IHouseReading>({
     name: "House B",
-    house_id: 2,
+    house_id: getHouseId("House B")[0],
     tenant: "",
     previous: 0,
     present: 0
   })
   const [houseC, setHouseC] = useState<IHouseReading>({
     name: "House C",
-    house_id: 3,
+    house_id: getHouseId("House C")[0],
     tenant: "",
     previous: 0,
     present: 0
   })
   const [houseD, setHouseD] = useState<IHouseReading>({
     name: "House D",
-    house_id: 4,
+    house_id: getHouseId("House D")[0],
+    tenant: "",
+    previous: 0,
+    present: 0
+  })
+  const [houseMain, setHouseMain] = useState<IHouseReading>({
+    name: "Main",
+    house_id: getHouseId("Main")[0],
     tenant: "",
     previous: 0,
     present: 0
   })
 
-  const totalConsumption =
-    store.totalReadings.present - store.totalReadings.previous
-  const pesoper = Math.round(store.totalReadings.bill / totalConsumption)
+  const totalConsumption = totalReadings.present - totalReadings.previous
+  const pesoper = Math.round(totalReadings.bill / totalConsumption)
 
   const formHandler = async (e: FormEvent) => {
     e.preventDefault()
@@ -73,10 +97,19 @@ const HouseForm = () => {
     const houseDConsumption = houseD.present - houseD.previous
     const houseDBill = houseDConsumption * pesoper
 
+    const houseMainConsumption =
+      totalConsumption -
+      (houseAConsumption +
+        houseBConsumption +
+        houseCConsumption +
+        houseDConsumption)
+    const houseMainBill =
+      totalReadings.bill - (houseABill + houseBBill + houseCBill + houseDBill)
+
     // Save Dates on Redux
     dispatch(
       setTotalReadings({
-        ...store.totalReadings,
+        ...totalReadings,
         dueDate: dueDateLocal.toDateString(),
         startDate: startDateLocal.toDateString(),
         endDate: endDateLocal.toDateString()
@@ -91,7 +124,7 @@ const HouseForm = () => {
       setHousesReadings([
         {
           name: houseA.name,
-          tenant: houseA?.tenant || "",
+          tenant: houseA?.tenant,
           previous: houseA.previous,
           present: houseA.present,
           consumption: houseAConsumption,
@@ -99,7 +132,7 @@ const HouseForm = () => {
         },
         {
           name: houseB.name,
-          tenant: houseB?.tenant || "",
+          tenant: houseB?.tenant,
           previous: houseB.previous,
           present: houseB.present,
           consumption: houseBConsumption,
@@ -107,7 +140,7 @@ const HouseForm = () => {
         },
         {
           name: houseC.name,
-          tenant: houseC?.tenant || "",
+          tenant: houseC?.tenant,
           previous: houseC.previous,
           present: houseC.present,
           consumption: houseCConsumption,
@@ -115,11 +148,19 @@ const HouseForm = () => {
         },
         {
           name: houseD.name,
-          tenant: houseD?.tenant || "",
+          tenant: houseD?.tenant,
           previous: houseD.previous,
           present: houseD.present,
           consumption: houseDConsumption,
           bill: houseDBill
+        },
+        {
+          name: houseMain.name,
+          tenant: houseMain?.tenant,
+          previous: totalReadings.previous,
+          present: totalReadings.present,
+          consumption: houseMainConsumption,
+          bill: houseMainBill
         }
       ])
     )

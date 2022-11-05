@@ -1,14 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import client from "axiosClient/client"
+import { ITenant } from "interfaces"
 
 export interface IInitialState {
-  tenants: {
-    id: string
-    name: string
-    house_id: number
-    fb_messenger: string
-    is_active: boolean
-    date_started: string
-  }[]
+  tenants: ITenant[]
 }
 
 const initialState: IInitialState = {
@@ -24,6 +19,19 @@ const initialState: IInitialState = {
   ]
 }
 
+export const getAllTenants = createAsyncThunk(
+  "appHouses/getAllTenants",
+  async () => {
+    try {
+      const response = await client.get("tenants")
+      const { data } = await response
+      return { allTenants: data }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
 export const tenantSlice = createSlice({
   name: "tenants",
   initialState,
@@ -31,6 +39,11 @@ export const tenantSlice = createSlice({
     setAllTenants: (state, action) => {
       state.tenants = action.payload
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getAllTenants.fulfilled, (state, action) => {
+      state.tenants = action.payload?.allTenants
+    })
   }
 })
 

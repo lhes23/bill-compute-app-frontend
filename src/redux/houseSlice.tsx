@@ -2,14 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import client from "axiosClient/client"
 import { IInitialState } from "interfaces"
 
-import { useDispatch, useSelector } from "react-redux"
-import type { TypedUseSelectorHook } from "react-redux"
-import { AppDispatch, RootState } from "store"
-
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch: () => AppDispatch = useDispatch
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
-
 export const getAllHouses = createAsyncThunk(
   "appHouses/getAllHouses",
   async () => {
@@ -74,7 +66,6 @@ export const houseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllHouses.fulfilled, (state, action) => {
-      console.log(action.payload)
       state.allHouses = action.payload?.allHouses
     })
   }

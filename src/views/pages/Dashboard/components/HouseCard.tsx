@@ -1,6 +1,6 @@
 import React from "react"
 import { FaHouseUser } from "react-icons/fa"
-import { IHouse } from "../../../../interfaces"
+import { IHouse } from "interfaces"
 
 const HouseCard = ({ house }: { house: IHouse }) => {
   return (

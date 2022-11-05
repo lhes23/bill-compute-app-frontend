@@ -8,20 +8,20 @@ interface IProps {
 }
 
 const HouseComponent = ({ house, setHouse }: IProps) => {
-  useEffect(() => {
-    client
-      .get("tenants")
-      .then((res) => {
-        const tenants = res.data
-        setHouse({
-          ...house,
-          tenant: tenants
-            .filter((tenant: any) => tenant.house_id === house.house_id)
-            .map((c: any) => c.name)
-        })
-      })
-      .catch((err) => console.log(err))
-  }, [])
+  // useEffect(() => {
+  //   client
+  //     .get("tenants")
+  //     .then((res) => {
+  //       const tenants = res.data
+  //       setHouse({
+  //         ...house,
+  //         tenant: tenants
+  //           .filter((tenant: any) => tenant.house_id === house.house_id)
+  //           .map((c: any) => c.name)
+  //       })
+  //     })
+  //     .catch((err) => console.log(err))
+  // }, [])
 
   return (
     <>

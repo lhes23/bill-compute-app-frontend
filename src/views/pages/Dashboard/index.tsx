@@ -3,17 +3,18 @@ import HouseCard from "./components/HouseCard"
 import AreaChart from "./components/AreaChart"
 import TenantTable from "./components/TenantTable"
 import client from "axiosClient/client"
-import { IHouse } from "interfaces"
 import { AxiosError, AxiosResponse } from "axios"
 import PageLayout from "layouts/PageLayout"
 import TotalHouseReadings from "./components/TotalHouseReadings"
-import { getAllHouses, useAppDispatch, useAppSelector } from "redux/houseSlice"
+import { getAllHouses } from "redux/houseSlice"
+import { useAppDispatch, useAppSelector } from "store"
 
 const Dashboard = () => {
   const [electricData, setElectricData] = useState<number[]>([])
   const [waterData, setWaterData] = useState<number[]>([])
   const dispatch = useAppDispatch()
-  const store = useAppSelector((state) => state.houses)
+  const { houses } = useAppSelector((state) => state)
+  const { allHouses } = houses
 
   useEffect(() => {
     dispatch(getAllHouses())
@@ -44,7 +45,7 @@ const Dashboard = () => {
       <PageLayout title="Dashboards">
         {/* Cards */}
         <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4 content-center">
-          {store?.allHouses.map((house) => (
+          {allHouses?.map((house) => (
             <HouseCard key={house.id} house={house} />
           ))}
         </div>

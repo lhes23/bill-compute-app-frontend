@@ -61,3 +61,12 @@ export interface IInitialState {
   }
   allHouses: IHouse[]
 }
+
+export interface ITenant {
+  id: string
+  name: string
+  house_id: number
+  fb_messenger: string
+  is_active: boolean
+  date_started: string
+}
