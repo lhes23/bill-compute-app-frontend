@@ -42,7 +42,7 @@ const TotalReading = ({
       <div className="grid grid-cols-2 gap-2 md:gap-4 my-4">
         <div className="relative">
           <label className={styles.label}>
-            <span className="text-gray-700 dark:text-gray-400">
+            <span className="text-gray-700 dark:text-gray-400 z-10">
               Start Date Covered
             </span>
           </label>
@@ -57,7 +57,7 @@ const TotalReading = ({
         </div>
         <div className="relative">
           <label className={styles.label}>
-            <span className="text-gray-700 dark:text-gray-400">
+            <span className="text-gray-700 dark:text-gray-400 z-10">
               End Date Covered
             </span>
           </label>
@@ -120,7 +120,7 @@ const TotalReading = ({
       <div className="grid grid-cols-2 gap-2 md:gap-4 w-full">
         <div className="relative">
           <label className={styles.label}>
-            <span className="text-gray-700 dark:text-gray-400">
+            <span className="text-gray-700 dark:text-gray-400 z-0">
               Previous Reading
             </span>
           </label>
@@ -143,7 +143,7 @@ const TotalReading = ({
         </div>
         <div className="relative">
           <label className={styles.label}>
-            <span className="text-gray-700 dark:text-gray-400">
+            <span className="text-gray-700 dark:text-gray-400 z-0">
               Present Reading
             </span>
           </label>
@@ -199,7 +199,7 @@ const styles = {
   input:
     "block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer",
   label:
-    "absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1",
+    "absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-0 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1",
   radio:
     "text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray",
   submitBtn:
