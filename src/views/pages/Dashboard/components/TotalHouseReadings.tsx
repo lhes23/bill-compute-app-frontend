@@ -1,5 +1,7 @@
 import client from "axiosClient/client"
 import React, { useState, useEffect } from "react"
+import { getAllReadings, getAllYearlyBills } from "redux/houseSlice"
+import { useAppDispatch, useAppSelector } from "store"
 
 interface IReading {
   id: number
@@ -20,14 +22,11 @@ interface IReading {
 }
 
 const TotalHouseReadings = () => {
-  const [readings, setReadings] = useState([])
+  const dispatch = useAppDispatch()
+  const { allReadings } = useAppSelector((state) => state.houses)
+
   useEffect(() => {
-    client
-      .get("readings/")
-      .then((res) => {
-        setReadings(res.data)
-      })
-      .catch((err) => console.log(err))
+    dispatch(getAllReadings())
   }, [])
 
   return (
@@ -45,7 +44,7 @@ const TotalHouseReadings = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-              {readings?.map((reading: IReading) => (
+              {allReadings?.map((reading: IReading) => (
                 <tr
                   key={reading.id}
                   className="text-gray-700 dark:text-gray-400"

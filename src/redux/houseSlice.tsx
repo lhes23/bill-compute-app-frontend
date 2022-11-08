@@ -1,14 +1,58 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import client from "axiosClient/client"
-import { IHouse, IHouseInitial, ITotalReading } from "interfaces"
+import {
+  IAllYearlyBills,
+  IHouse,
+  IHouseInitial,
+  IReading,
+  ITotalReading
+} from "interfaces"
 
 export const getAllHouses = createAsyncThunk(
   "appHouses/getAllHouses",
   async () => {
     try {
-      const allHouses = await client.get("houses")
-      const { data } = await allHouses
+      const response = await client.get("houses/")
+      const { data } = await response
       return { allHouses: data }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
+export const getAllYearlyBills = createAsyncThunk(
+  "appHouses/getAllYearlyBills",
+  async () => {
+    try {
+      const response = await client.get("yearly-bills/")
+      const { data } = await response
+      return { allYearlyBills: data }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
+export const getAllReadings = createAsyncThunk(
+  "appHouses/getAllReadings",
+  async () => {
+    try {
+      const response = await client.get("readings/")
+      const { data } = response
+      return { allReadings: data }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
+export const addReading = createAsyncThunk(
+  "appHouses/addReading",
+  async (data) => {
+    try {
+      const response = await client.post("readings/", data)
+      return response
     } catch (error) {
       console.log(error)
     }
@@ -20,21 +64,12 @@ interface IInitialState {
   pesoPer: number
   totalReadings: ITotalReading
   allHouses: IHouse[]
+  allYearlyBills: IAllYearlyBills[]
+  allReadings: IReading[]
 }
 
 const initialState: IInitialState = {
-  houses: [
-    {
-      house_id: 0,
-      tenant_id: 0,
-      name: "",
-      tenant: "",
-      previous: 0,
-      present: 0,
-      consumption: 0,
-      bill: 0
-    }
-  ],
+  houses: [],
   pesoPer: 0,
   totalReadings: {
     name: "wholeHouse",
@@ -47,14 +82,9 @@ const initialState: IInitialState = {
     startDate: "",
     endDate: ""
   },
-  allHouses: [
-    {
-      id: 0,
-      name: "",
-      is_occupied: false,
-      color: ""
-    }
-  ]
+  allHouses: [],
+  allYearlyBills: [],
+  allReadings: []
 }
 
 export const houseSlice = createSlice({
@@ -74,6 +104,12 @@ export const houseSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllHouses.fulfilled, (state, action) => {
       state.allHouses = action.payload?.allHouses
+    })
+    builder.addCase(getAllYearlyBills.fulfilled, (state, action) => {
+      state.allYearlyBills = action.payload?.allYearlyBills
+    })
+    builder.addCase(getAllReadings.fulfilled, (state, action) => {
+      state.allReadings = action.payload?.allReadings
     })
   }
 })

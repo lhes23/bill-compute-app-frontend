@@ -2,6 +2,7 @@ export interface IHouseReading {
   name: string
   house_id: number
   tenant: string
+  tenant_id: number
   previous: number
   present: number
 }
@@ -60,10 +61,36 @@ export interface ITotalReading {
 }
 
 export interface ITenant {
-  id: string
+  id: number
   name: string
   house_id: number
   fb_messenger: string
   is_active: boolean
   date_started: string
+}
+
+export interface IAllYearlyBills {
+  id: number
+  year: number
+  month: string
+  bill_type: string
+  bill: number
+}
+
+export interface IReading {
+  id: number
+  bill_type: string
+  due_date: string
+  start_date: string
+  end_date: string
+  previous_reading: number
+  present_reading: number
+  consumption: number
+  peso_per_consumption: number
+  bill: number
+  status: string
+  created_at: string
+  paid_at: string | null
+  house_id: number
+  tenant_id: number
 }

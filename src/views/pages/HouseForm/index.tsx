@@ -37,8 +37,9 @@ const HouseForm = () => {
 
   const [houseA, setHouseA] = useState<IHouseReading>({
     name: "House A",
-    house_id: getHouseId("House A")[0],
+    house_id: 0,
     tenant: "",
+    tenant_id: 0,
     previous: 0,
     present: 0
   })
@@ -46,21 +47,24 @@ const HouseForm = () => {
   const [houseB, setHouseB] = useState<IHouseReading>({
     name: "House B",
     house_id: getHouseId("House B")[0],
-    tenant: "",
+    tenant: "Anne",
+    tenant_id: 0,
     previous: 0,
     present: 0
   })
   const [houseC, setHouseC] = useState<IHouseReading>({
     name: "House C",
     house_id: getHouseId("House C")[0],
-    tenant: "",
+    tenant: "Myra Flor",
+    tenant_id: 0,
     previous: 0,
     present: 0
   })
   const [houseD, setHouseD] = useState<IHouseReading>({
     name: "House D",
     house_id: getHouseId("House D")[0],
-    tenant: "",
+    tenant: "Kim and Mark",
+    tenant_id: 0,
     previous: 0,
     present: 0
   })
@@ -68,6 +72,7 @@ const HouseForm = () => {
     name: "Main",
     house_id: getHouseId("Main")[0],
     tenant: "",
+    tenant_id: 0,
     previous: 0,
     present: 0
   })
@@ -150,7 +155,7 @@ const HouseForm = () => {
           previous: totalReadings.previous,
           present: totalReadings.present,
           consumption: houseMainConsumption,
-          bill: houseMainBill
+          bill: Number(houseMainBill).toFixed(2)
         }
       ])
     )

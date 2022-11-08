@@ -13,8 +13,7 @@ const Dashboard = () => {
   const [electricData, setElectricData] = useState<number[]>([])
   const [waterData, setWaterData] = useState<number[]>([])
   const dispatch = useAppDispatch()
-  const { houses } = useAppSelector((state) => state)
-  const { allHouses } = houses
+  const { allHouses } = useAppSelector((state) => state.houses)
 
   useEffect(() => {
     dispatch(getAllHouses())

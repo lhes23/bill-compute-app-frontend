@@ -1,6 +1,5 @@
 import React from "react"
-import { useSelector } from "react-redux"
-import { RootState } from "store"
+import { useAppDispatch, useAppSelector } from "store"
 import { FcElectricity } from "react-icons/fc"
 import { IoWaterSharp } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
@@ -8,19 +7,42 @@ import client from "axiosClient/client"
 
 const ResultTable = () => {
   const navigate = useNavigate()
-  const store = useSelector((state: RootState) => state)
-  const { houses, pesoPer } = store.houses
-  const { dueDate, startDate, endDate, billType, bill } =
-    store.houses.totalReadings
+  const store = useAppSelector((state) => state)
+  const dispatch = useAppDispatch()
+  const { houses, pesoPer, totalReadings } = store.houses
+  const { dueDate, startDate, endDate, billType, bill } = totalReadings
 
-  const confirmHandler = () => {
+  const confirmHandler = async () => {
+    // client
+    //   .post("yearly-bills/", {
+    //     year: endDate.split(" ")[3],
+    //     month: endDate.split(" ")[1],
+    //     bill_type: billType,
+    //     bill
+    //   })
+    //   .then((res) => {
+    //     if (!res.status) {
+    //       console.log("Something went wrong")
+    //     }
+    //   })
+    //   .catch((err) => console.log(err))
+
+    const item = {
+      house_id: 1,
+      tenant_id: 3,
+      bill_type: billType,
+      due_date: dueDate,
+      start_date: startDate,
+      end_date: endDate,
+      previous_reading: 1,
+      present_reading: 2,
+      consumption: 1,
+      peso_per_consumption: pesoPer,
+      bill: 10
+    }
+
     client
-      .post("yearly-bills/", {
-        year: endDate.split(" ")[3],
-        month: endDate.split(" ")[1],
-        bill_type: billType,
-        bill
-      })
+      .post("readings/", item)
       .then((res) => {
         if (!res.status) {
           console.log("Something went wrong")
@@ -28,30 +50,8 @@ const ResultTable = () => {
         navigate("/")
       })
       .catch((err) => console.log(err))
-
-    // client
-    //   .post("readings/", {
-    //     house_id: 5,
-    //     tenant_id: 6,
-    //     bill_type: billType,
-    //     due_date: dueDate,
-    //     start_date: startDate,
-    //     end_date: endDate,
-    //     previous_reading: previous,
-    //     present_reading: present,
-    //     consumption,
-    //     peso_per_consumption: store.pesoPer,
-    //     bill,
-    //     status: "unpaid"
-    //   })
-    // .then((res) => {
-    //   if (!res.status) {
-    //     console.log("Something went wrong")
-    //   }
-    //   navigate("/")
-    // })
-    // .catch((err) => console.log(err))
   }
+
   return (
     <>
       <h2 className="my-6 text-2xl font-semibold">Result</h2>
