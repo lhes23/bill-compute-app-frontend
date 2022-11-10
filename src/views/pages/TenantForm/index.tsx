@@ -39,13 +39,19 @@ const TenantForm = () => {
 
   const submitHandler = () => {
     client
-      .post("tenants/", { name, fb_messenger: fb, house_id: houseId })
-      .then((res) => setIsSuccess(true))
+      .post("tenants/active/", { name, fb_messenger: fb, house_id: houseId })
+      .then((res) => {
+        if (!res.status) {
+          setIsSuccess(false)
+        }
+        setIsSuccess(true)
+      })
       .catch((err) => setIsSuccess(false))
 
     setName("")
     setFb("")
     setHouseId(0)
+    setIsSuccess(null)
   }
 
   return (
@@ -55,8 +61,8 @@ const TenantForm = () => {
           <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md md:w-[50vw]">
             {isSuccess && (
               <div
-                className={`alert alert-${
-                  isSuccess ? "success" : "error"
+                className={`alert ${
+                  isSuccess ? `alert-success` : `alert-error`
                 } shadow-lg`}
               >
                 <div>
