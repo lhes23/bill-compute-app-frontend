@@ -30,15 +30,19 @@ const HouseForm = () => {
   const [endDateLocal, setEndDateLocal] = useState<Date>(new Date())
 
   const getHouseId = (house: string) => {
-    return allHouses
-      .filter((allHouse) => allHouse.name === house)
-      .map((c) => c.id)
+    return allHouses?.filter((h) => h.name === house).map((n) => n.id)
+  }
+
+  const getTenantName = (houseId: number) => {
+    return tenants.tenants
+      .filter((t) => t.house_id === houseId)
+      .map((n) => n.name)
   }
 
   const [houseA, setHouseA] = useState<IHouseReading>({
     name: "House A",
-    house_id: 0,
-    tenant: "",
+    house_id: getHouseId("House A")[0],
+    tenant: getTenantName(getHouseId("House A")[0])[0],
     tenant_id: 0,
     previous: 0,
     present: 0
@@ -46,8 +50,8 @@ const HouseForm = () => {
 
   const [houseB, setHouseB] = useState<IHouseReading>({
     name: "House B",
-    house_id: getHouseId("House B")[0],
-    tenant: "Anne",
+    house_id: 0,
+    tenant: getTenantName(getHouseId("House B")[0])[0],
     tenant_id: 0,
     previous: 0,
     present: 0
@@ -55,7 +59,7 @@ const HouseForm = () => {
   const [houseC, setHouseC] = useState<IHouseReading>({
     name: "House C",
     house_id: getHouseId("House C")[0],
-    tenant: "Myra Flor",
+    tenant: getTenantName(getHouseId("House C")[0])[0],
     tenant_id: 0,
     previous: 0,
     present: 0
@@ -63,7 +67,7 @@ const HouseForm = () => {
   const [houseD, setHouseD] = useState<IHouseReading>({
     name: "House D",
     house_id: getHouseId("House D")[0],
-    tenant: "Kim and Mark",
+    tenant: getTenantName(getHouseId("House D")[0])[0],
     tenant_id: 0,
     previous: 0,
     present: 0
@@ -71,7 +75,7 @@ const HouseForm = () => {
   const [houseMain, setHouseMain] = useState<IHouseReading>({
     name: "Main",
     house_id: getHouseId("Main")[0],
-    tenant: "",
+    tenant: getTenantName(getHouseId("Main")[0])[0],
     tenant_id: 0,
     previous: 0,
     present: 0

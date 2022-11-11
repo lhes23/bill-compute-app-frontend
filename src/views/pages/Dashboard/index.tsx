@@ -8,6 +8,7 @@ import PageLayout from "layouts/PageLayout"
 import TotalHouseReadings from "./components/TotalHouseReadings"
 import { getAllHouses } from "redux/houseSlice"
 import { useAppDispatch, useAppSelector } from "store"
+import { BsFilter } from "react-icons/bs"
 
 const Dashboard = () => {
   const [electricData, setElectricData] = useState<number[]>([])
@@ -44,9 +45,11 @@ const Dashboard = () => {
       <PageLayout title="Dashboards">
         {/* Cards */}
         <div className="grid gap-6 mb-8 grid-cols-2 md:grid-cols-4 content-center">
-          {allHouses?.map((house) => (
-            <HouseCard key={house.id} house={house} />
-          ))}
+          {allHouses
+            ?.filter((h) => h.name !== "Main" && h.name !== "WholeHouse")
+            .map((house) => (
+              <HouseCard key={house.id} house={house} />
+            ))}
         </div>
 
         <div>

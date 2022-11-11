@@ -1,5 +1,6 @@
 import React from "react"
 import { FaHouseUser } from "react-icons/fa"
+import { BsHouseDoor } from "react-icons/bs"
 import { IHouse } from "interfaces"
 
 const HouseCard = ({ house }: { house: IHouse }) => {
@@ -16,6 +17,9 @@ const HouseCard = ({ house }: { house: IHouse }) => {
           <p className="text-lg font-semibold text-gray-700">
             {house.is_occupied ? "Occupied" : "Vacant"}
           </p>
+        </div>
+        <div className="flex justify-end w-full">
+          <BsHouseDoor size={30} />
         </div>
       </div>
     </>
