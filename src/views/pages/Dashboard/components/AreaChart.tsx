@@ -30,24 +30,35 @@ export const options = {
   maintainAspectRatio: true
 }
 
+export interface IDataSets {
+  id: number
+  bill: number
+  bill_type: string
+  month: string
+  year: number
+}
+
 const AreaChart = ({
   datasets,
   label,
   color,
   fillColor
 }: {
-  datasets: number[]
+  // datasets: number[]
+  datasets: IDataSets[]
   label: string
   color: string
   fillColor: string
 }) => {
   const data = {
-    labels: months,
+    // labels: months,
+    labels: datasets.map((m) => m.month),
     datasets: [
       {
         fill: true,
         label,
-        data: datasets,
+        // data: datasets,
+        data: datasets.map((m) => m.bill),
         borderColor: color,
         backgroundColor: fillColor
       }

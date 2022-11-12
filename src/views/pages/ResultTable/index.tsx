@@ -13,19 +13,19 @@ const ResultTable = () => {
   const { dueDate, startDate, endDate, billType, bill } = totalReadings
 
   const confirmHandler = async () => {
-    // client
-    //   .post("yearly-bills/", {
-    //     year: endDate.split(" ")[3],
-    //     month: endDate.split(" ")[1],
-    //     bill_type: billType,
-    //     bill
-    //   })
-    //   .then((res) => {
-    //     if (!res.status) {
-    //       console.log("Something went wrong")
-    //     }
-    //   })
-    //   .catch((err) => console.log(err))
+    client
+      .post("yearly-bills/", {
+        year: endDate.split(" ")[3],
+        month: endDate.split(" ")[1],
+        bill_type: billType,
+        bill
+      })
+      .then((res) => {
+        if (!res.status) {
+          console.log("Something went wrong")
+        }
+      })
+      .catch((err) => console.log(err))
 
     const item = {
       house_id: 1,

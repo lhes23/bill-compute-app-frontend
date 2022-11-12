@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import HouseCard from "./components/HouseCard"
-import AreaChart from "./components/AreaChart"
+import AreaChart, { IDataSets } from "./components/AreaChart"
 import TenantTable from "./components/TenantTable"
 import client from "axiosClient/client"
 import { AxiosError, AxiosResponse } from "axios"
@@ -8,11 +8,10 @@ import PageLayout from "layouts/PageLayout"
 import TotalHouseReadings from "./components/TotalHouseReadings"
 import { getAllHouses } from "redux/houseSlice"
 import { useAppDispatch, useAppSelector } from "store"
-import { BsFilter } from "react-icons/bs"
 import ActiveReadingsTable from "./components/ActiveReadings"
 
 const Dashboard = () => {
-  const [electricData, setElectricData] = useState<number[]>([])
+  const [electricData, setElectricData] = useState<IDataSets[]>([])
   const [waterData, setWaterData] = useState<number[]>([])
   const dispatch = useAppDispatch()
   const { allHouses } = useAppSelector((state) => state.houses)
@@ -25,16 +24,17 @@ const Dashboard = () => {
     client
       .get("yearly-bills/")
       .then((res: AxiosResponse) => {
-        const electric = res.data
-          .filter((e: any) => e.bill_type === "electric")
-          .map((c: any) => c.bill)
-        setElectricData(electric)
+        // const electric = res.data
+        //   .filter((e: any) => e.bill_type === "electric")
+        //   .map((c: any) => c.bill)
+        setElectricData(res.data)
       })
       .catch((err: AxiosError) => console.log(err))
 
     client
       .get("yearly-bills/")
       .then((res: AxiosResponse) => {
+        console.log(res)
         const water = res.data
           .filter((e: any) => e.bill_type === "water")
           .map((c: any) => c.bill)
@@ -42,6 +42,8 @@ const Dashboard = () => {
       })
       .catch((err: AxiosError) => console.log(err))
   }, [])
+
+  // console.log({ waterData, electricData })
 
   return (
     <>
@@ -64,12 +66,12 @@ const Dashboard = () => {
               color="green"
               fillColor="rgba(0,87,0,0.3)"
             />
-            <AreaChart
+            {/* <AreaChart
               datasets={waterData}
               label="Water Bill"
               color="blue"
               fillColor="rgba(0,0,51,0.5)"
-            />
+            /> */}
           </div>
         </div>
         <TotalHouseReadings />
