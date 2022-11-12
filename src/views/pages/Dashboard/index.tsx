@@ -9,6 +9,7 @@ import TotalHouseReadings from "./components/TotalHouseReadings"
 import { getAllHouses } from "redux/houseSlice"
 import { useAppDispatch, useAppSelector } from "store"
 import { BsFilter } from "react-icons/bs"
+import ActiveReadingsTable from "./components/ActiveReadings"
 
 const Dashboard = () => {
   const [electricData, setElectricData] = useState<number[]>([])
@@ -72,6 +73,7 @@ const Dashboard = () => {
           </div>
         </div>
         <TotalHouseReadings />
+        <ActiveReadingsTable />
         <TenantTable />
       </PageLayout>
     </>
