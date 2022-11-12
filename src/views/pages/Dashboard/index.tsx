@@ -18,7 +18,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getAllHouses())
+  }, [dispatch])
 
+  useEffect(() => {
     client
       .get("yearly-bills/")
       .then((res: AxiosResponse) => {
