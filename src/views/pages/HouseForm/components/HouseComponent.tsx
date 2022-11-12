@@ -5,25 +5,17 @@ import { useAppSelector } from "store"
 interface IProps {
   house: IHouseReading
   setHouse: React.Dispatch<React.SetStateAction<IHouseReading>>
+  tenantName: string
 }
 
-const HouseComponent = ({ house, setHouse }: IProps) => {
-  const store = useAppSelector((state) => state.tenants)
-  useEffect(() => {
-    store.tenants.map((tenant) => {
-      if (tenant.house_id === house.house_id && tenant.is_active) {
-        setHouse({ ...house, tenant: tenant.name })
-      }
-    })
-  }, [])
-
+const HouseComponent = ({ house, setHouse, tenantName }: IProps) => {
   return (
     <>
       <h2 className="p-2">{house.name}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
         <div className="relative">
           <h2 className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-            {house.tenant}
+            {tenantName}
           </h2>
           <label
             htmlFor="previous_reading"
@@ -61,7 +53,11 @@ const HouseComponent = ({ house, setHouse }: IProps) => {
             placeholder="Present Reading"
             value={house.present}
             onChange={(e) =>
-              setHouse({ ...house, present: Number(e.target.value) })
+              setHouse({
+                ...house,
+                present: Number(e.target.value),
+                tenant: tenantName
+              })
             }
           />
           <label

@@ -4,6 +4,7 @@ import { ITenant } from "interfaces"
 
 export interface IInitialState {
   tenants: ITenant[]
+  activeTenants: ITenant[]
 }
 
 const initialState: IInitialState = {
@@ -16,7 +17,8 @@ const initialState: IInitialState = {
       is_active: true,
       date_started: ""
     }
-  ]
+  ],
+  activeTenants: []
 }
 
 export const getAllTenants = createAsyncThunk(
@@ -26,6 +28,19 @@ export const getAllTenants = createAsyncThunk(
       const response = await client.get("tenants")
       const { data } = await response
       return { allTenants: data }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+)
+
+export const getActiveTenants = createAsyncThunk(
+  "appHouses/getActiveTenants",
+  async () => {
+    try {
+      const response = await client.get("tenants/active")
+      const { data } = await response
+      return { activeTenants: data }
     } catch (error) {
       console.log(error)
     }
@@ -43,6 +58,9 @@ export const tenantSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllTenants.fulfilled, (state, action) => {
       state.tenants = action.payload?.allTenants
+    })
+    builder.addCase(getActiveTenants.fulfilled, (state, action) => {
+      state.activeTenants = action.payload?.activeTenants
     })
   }
 })

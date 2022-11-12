@@ -12,7 +12,7 @@ import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
 import PageLayout from "layouts/PageLayout"
 import { useAppDispatch, useAppSelector } from "store"
-import { getAllTenants } from "redux/tenantSlice"
+import { getActiveTenants, getAllTenants } from "redux/tenantSlice"
 
 const HouseForm = () => {
   const navigate = useNavigate()
@@ -23,6 +23,7 @@ const HouseForm = () => {
   useEffect(() => {
     dispatch(getAllHouses())
     dispatch(getAllTenants())
+    dispatch(getActiveTenants())
   }, [dispatch])
 
   const [dueDateLocal, setDueDateLocal] = useState<Date>(new Date())
@@ -34,7 +35,7 @@ const HouseForm = () => {
   }
 
   const getTenantName = (houseId: number) => {
-    return tenants.tenants
+    return tenants.activeTenants
       .filter((t) => t.house_id === houseId)
       .map((n) => n.name)
   }
@@ -181,10 +182,26 @@ const HouseForm = () => {
               setEndDateLocal={setEndDateLocal}
             />
 
-            <HouseComponent house={houseA} setHouse={setHouseA} />
-            <HouseComponent house={houseB} setHouse={setHouseB} />
-            <HouseComponent house={houseC} setHouse={setHouseC} />
-            <HouseComponent house={houseD} setHouse={setHouseD} />
+            <HouseComponent
+              house={houseA}
+              setHouse={setHouseA}
+              tenantName={getTenantName(getHouseId("House A")[0])[0]}
+            />
+            <HouseComponent
+              house={houseB}
+              setHouse={setHouseB}
+              tenantName={getTenantName(getHouseId("House B")[0])[0]}
+            />
+            <HouseComponent
+              house={houseC}
+              setHouse={setHouseC}
+              tenantName={getTenantName(getHouseId("House C")[0])[0]}
+            />
+            <HouseComponent
+              house={houseD}
+              setHouse={setHouseD}
+              tenantName={getTenantName(getHouseId("House D")[0])[0]}
+            />
 
             <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
               <button
