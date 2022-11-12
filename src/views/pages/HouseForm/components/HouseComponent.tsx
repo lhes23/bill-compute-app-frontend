@@ -1,6 +1,5 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { IHouseReading } from "interfaces"
-import { useAppSelector } from "store"
 
 interface IProps {
   house: IHouseReading

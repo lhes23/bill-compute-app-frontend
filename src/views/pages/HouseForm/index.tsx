@@ -12,7 +12,7 @@ import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
 import PageLayout from "layouts/PageLayout"
 import { useAppDispatch, useAppSelector } from "store"
-import { getActiveTenants, getAllTenants } from "redux/tenantSlice"
+import { getActiveTenants } from "redux/tenantSlice"
 
 const HouseForm = () => {
   const navigate = useNavigate()
@@ -22,7 +22,6 @@ const HouseForm = () => {
 
   useEffect(() => {
     dispatch(getAllHouses())
-    dispatch(getAllTenants())
     dispatch(getActiveTenants())
   }, [dispatch])
 
@@ -42,8 +41,8 @@ const HouseForm = () => {
 
   const [houseA, setHouseA] = useState<IHouseReading>({
     name: "House A",
-    house_id: getHouseId("House A")[0],
-    tenant: getTenantName(getHouseId("House A")[0])[0],
+    house_id: 0,
+    tenant: "",
     tenant_id: 0,
     previous: 0,
     present: 0
@@ -52,23 +51,23 @@ const HouseForm = () => {
   const [houseB, setHouseB] = useState<IHouseReading>({
     name: "House B",
     house_id: 0,
-    tenant: getTenantName(getHouseId("House B")[0])[0],
+    tenant: "",
     tenant_id: 0,
     previous: 0,
     present: 0
   })
   const [houseC, setHouseC] = useState<IHouseReading>({
     name: "House C",
-    house_id: getHouseId("House C")[0],
-    tenant: getTenantName(getHouseId("House C")[0])[0],
+    house_id: 0,
+    tenant: "",
     tenant_id: 0,
     previous: 0,
     present: 0
   })
   const [houseD, setHouseD] = useState<IHouseReading>({
     name: "House D",
-    house_id: getHouseId("House D")[0],
-    tenant: getTenantName(getHouseId("House D")[0])[0],
+    house_id: 0,
+    tenant: "",
     tenant_id: 0,
     previous: 0,
     present: 0
