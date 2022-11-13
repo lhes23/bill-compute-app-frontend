@@ -1,5 +1,5 @@
 import React from "react"
-import { months } from "interfaces"
+import { IDataSets, months } from "interfaces"
 
 import {
   Chart as ChartJS,
@@ -30,21 +30,12 @@ export const options = {
   maintainAspectRatio: true
 }
 
-export interface IDataSets {
-  id: number
-  bill: number
-  bill_type: string
-  month: string
-  year: number
-}
-
 const AreaChart = ({
   datasets,
   label,
   color,
   fillColor
 }: {
-  // datasets: number[]
   datasets: IDataSets[]
   label: string
   color: string

@@ -94,3 +94,11 @@ export interface IReading {
   house_id: number
   tenant_id: number
 }
+
+export interface IDataSets {
+  id: number
+  bill: number
+  bill_type: string
+  month: string
+  year: number
+}

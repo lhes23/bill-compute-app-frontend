@@ -1,33 +1,35 @@
 import React, { useEffect, useState } from "react"
 import HouseCard from "./components/HouseCard"
-import AreaChart, { IDataSets } from "./components/AreaChart"
+import AreaChart from "./components/AreaChart"
 import TenantTable from "./components/TenantTable"
 import client from "axiosClient/client"
 import { AxiosError, AxiosResponse } from "axios"
 import PageLayout from "layouts/PageLayout"
 import TotalHouseReadings from "./components/TotalHouseReadings"
-import { getAllHouses } from "redux/houseSlice"
+import { getAllHouses, getAllYearlyBills } from "redux/houseSlice"
 import { useAppDispatch, useAppSelector } from "store"
 import ActiveReadingsTable from "./components/ActiveReadings"
+import { IDataSets } from "interfaces"
 
 const Dashboard = () => {
   const [electricData, setElectricData] = useState<IDataSets[]>([])
-  const [waterData, setWaterData] = useState<number[]>([])
+  const [waterData, setWaterData] = useState<IDataSets[]>([])
   const dispatch = useAppDispatch()
-  const { allHouses } = useAppSelector((state) => state.houses)
+  const { allHouses, allYearlyBills } = useAppSelector((state) => state.houses)
 
   useEffect(() => {
     dispatch(getAllHouses())
+    dispatch(getAllYearlyBills())
   }, [dispatch])
 
   useEffect(() => {
     client
       .get("yearly-bills/")
       .then((res: AxiosResponse) => {
-        // const electric = res.data
-        //   .filter((e: any) => e.bill_type === "electric")
-        //   .map((c: any) => c.bill)
-        setElectricData(res.data)
+        const electric = res.data
+          .filter((e: any) => e.bill_type === "electric")
+          .map((c: any) => c.bill)
+        setElectricData(electric)
       })
       .catch((err: AxiosError) => console.log(err))
 
@@ -43,7 +45,7 @@ const Dashboard = () => {
       .catch((err: AxiosError) => console.log(err))
   }, [])
 
-  // console.log({ waterData, electricData })
+  console.log({ waterData, electricData, allYearlyBills })
 
   return (
     <>
@@ -61,17 +63,19 @@ const Dashboard = () => {
           <h3 className="my-6 text-xl font-semibold">Yearly Consumptions</h3>
           <div className="md:grid grid-cols-2">
             <AreaChart
-              datasets={electricData}
+              datasets={allYearlyBills.filter(
+                (m) => m.bill_type === "Electric"
+              )}
               label="Electric Bill"
               color="green"
               fillColor="rgba(0,87,0,0.3)"
             />
-            {/* <AreaChart
-              datasets={waterData}
+            <AreaChart
+              datasets={allYearlyBills.filter((m) => m.bill_type === "Water")}
               label="Water Bill"
               color="blue"
               fillColor="rgba(0,0,51,0.5)"
-            /> */}
+            />
           </div>
         </div>
         <TotalHouseReadings />
