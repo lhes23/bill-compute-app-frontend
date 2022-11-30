@@ -31,6 +31,9 @@ const TenantTable = () => {
                 <th className="px-4 py-3">House</th>
                 <th className="px-4 py-3">Fb Messenger</th>
                 <th className="px-4 py-3">Date Started</th>
+                <th className="px-4 py-3 text-center" colSpan={2}>
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -71,6 +74,12 @@ const TenantTable = () => {
                     </td>
                     <td className="px-4 py-3 text-sm">
                       {activeTenant.date_started}
+                    </td>
+                    <td className="px-4 py-3 text-sm">Edit</td>
+                    <td className="px-4 py-3 text-sm">
+                      <button className="btn btn-outline btn-error">
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}
