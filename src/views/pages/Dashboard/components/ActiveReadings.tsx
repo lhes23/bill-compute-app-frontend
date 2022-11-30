@@ -19,6 +19,14 @@ const ActiveReadingsTable = () => {
     return allHouses?.filter((h) => h.id === id).map((n) => n.name)
   }
 
+  const paidHandler = (id: number) => {
+    console.log(id)
+    client
+      .patch(`readings/${id}/`, { status: "paid" })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+  }
+
   return (
     <>
       <h3 className="my-6 text-xl font-semibold">Active Readings</h3>
@@ -31,6 +39,9 @@ const ActiveReadingsTable = () => {
                 <th className="px-4 py-3">House</th>
                 <th className="px-4 py-3">Bill</th>
                 <th className="px-4 py-3">Due Date</th>
+                <th className="px-4 py-3 text-center" colSpan={2}>
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -71,6 +82,15 @@ const ActiveReadingsTable = () => {
                   </td>
                   <td className="px-4 py-3 text-sm">
                     {activeReading.due_date}
+                  </td>
+                  <td className="px-4 py-3 text-sm">Edit</td>
+                  <td className="px-4 py-3 text-sm">
+                    <button
+                      className="btn btn-outline btn-error"
+                      onClick={() => paidHandler(activeReading.id)}
+                    >
+                      Paid
+                    </button>
                   </td>
                 </tr>
               ))}

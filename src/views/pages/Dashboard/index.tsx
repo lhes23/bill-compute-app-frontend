@@ -36,7 +36,6 @@ const Dashboard = () => {
     client
       .get("yearly-bills/")
       .then((res: AxiosResponse) => {
-        console.log(res)
         const water = res.data
           .filter((e: any) => e.bill_type === "water")
           .map((c: any) => c.bill)
@@ -44,8 +43,6 @@ const Dashboard = () => {
       })
       .catch((err: AxiosError) => console.log(err))
   }, [])
-
-  console.log({ waterData, electricData, allYearlyBills })
 
   return (
     <>

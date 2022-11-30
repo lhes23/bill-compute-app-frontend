@@ -54,6 +54,8 @@ const TenantForm = () => {
     setIsSuccess(null)
   }
 
+  console.log({ name, fb_messenger: fb, house_id: houseId })
+
   return (
     <>
       <PageLayout title="Add a Tenant">
