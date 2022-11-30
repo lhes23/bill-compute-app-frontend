@@ -102,3 +102,21 @@ export interface IDataSets {
   month: string
   year: number
 }
+
+export interface IReading {
+  id: number
+  bill_type: string
+  due_date: string
+  start_date: string
+  end_date: string
+  previous_reading: number
+  present_reading: number
+  consumption: number
+  peso_per_consumption: number
+  bill: number
+  status: string
+  created_at: string
+  paid_at: string | null
+  house_id: number
+  tenant_id: number
+}

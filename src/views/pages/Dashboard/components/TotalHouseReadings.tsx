@@ -1,25 +1,9 @@
+import React, { useEffect } from "react"
+import { AxiosError, AxiosResponse } from "axios"
 import client from "axiosClient/client"
-import React, { useState, useEffect } from "react"
-import { getAllReadings, getAllYearlyBills } from "redux/houseSlice"
+import { getAllReadings } from "redux/houseSlice"
 import { useAppDispatch, useAppSelector } from "store"
-
-interface IReading {
-  id: number
-  bill_type: string
-  due_date: string
-  start_date: string
-  end_date: string
-  previous_reading: number
-  present_reading: number
-  consumption: number
-  peso_per_consumption: number
-  bill: number
-  status: string
-  created_at: string
-  paid_at: string | null
-  house_id: number
-  tenant_id: number
-}
+import { IReading } from "interfaces"
 
 const TotalHouseReadings = () => {
   const dispatch = useAppDispatch()
@@ -27,7 +11,19 @@ const TotalHouseReadings = () => {
 
   useEffect(() => {
     dispatch(getAllReadings())
-  }, [])
+  }, [dispatch])
+
+  const deleteHandler = (id: number) => {
+    client
+      .delete(`readings/${id}`)
+      .then((res: AxiosResponse) => {
+        if (!res.status) {
+          console.log(res)
+        }
+        dispatch(getAllReadings())
+      })
+      .catch((err: AxiosError) => console.log(err))
+  }
 
   return (
     <>
@@ -41,6 +37,9 @@ const TotalHouseReadings = () => {
                 <th className="px-4 py-3">Amount</th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3">Date</th>
+                <th className="px-4 py-3 text-center" colSpan={2}>
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -78,6 +77,15 @@ const TotalHouseReadings = () => {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm">{reading.due_date}</td>
+                  <td className="px-4 py-3 text-sm">Edit</td>
+                  <td className="px-4 py-3 text-sm">
+                    <button
+                      className="btn btn-outline btn-error"
+                      onClick={() => deleteHandler(reading.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
