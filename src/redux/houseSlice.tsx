@@ -38,7 +38,8 @@ export const getAllReadings = createAsyncThunk(
   "appHouses/getAllReadings",
   async () => {
     try {
-      const response = await client.get("readings/")
+      // const response = await client.get("readings/")
+      const response = await client.get("yearly-bills/")
       const { data } = response
       return { allReadings: data }
     } catch (error) {

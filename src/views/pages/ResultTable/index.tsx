@@ -38,7 +38,7 @@ const ResultTable = () => {
       present_reading: 2,
       consumption: 1,
       peso_per_consumption: pesoPer,
-      bill: 10
+      bill
     }
 
     client
