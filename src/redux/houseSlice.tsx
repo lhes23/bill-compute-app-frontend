@@ -62,6 +62,11 @@ export const addReading = createAsyncThunk(
 
 interface IInitialState {
   houses: IHouseInitial[]
+  houseAData: IHouseInitial
+  houseBData: IHouseInitial
+  houseCData: IHouseInitial
+  houseDData: IHouseInitial
+  houseMainData: IHouseInitial
   pesoPer: number
   totalReadings: ITotalReading
   allHouses: IHouse[]
@@ -69,8 +74,24 @@ interface IInitialState {
   allReadings: IReading[]
 }
 
+const initialHouseData: IHouseInitial = {
+  house_id: 0,
+  tenant_id: 0,
+  name: "",
+  tenant: "",
+  previous: 0,
+  present: 0,
+  consumption: 0,
+  bill: 0
+}
+
 const initialState: IInitialState = {
   houses: [],
+  houseAData: { ...initialHouseData, name: "House A" },
+  houseBData: initialHouseData,
+  houseCData: initialHouseData,
+  houseDData: initialHouseData,
+  houseMainData: initialHouseData,
   pesoPer: 0,
   totalReadings: {
     name: "wholeHouse",
@@ -100,6 +121,9 @@ export const houseSlice = createSlice({
     },
     setTotalReadings: (state, action) => {
       state.totalReadings = action.payload
+    },
+    setHouseADataReadings: (state, action) => {
+      state.houseAData = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -115,7 +139,11 @@ export const houseSlice = createSlice({
   }
 })
 
-export const { setHousesReadings, setPesoPer, setTotalReadings } =
-  houseSlice.actions
+export const {
+  setHousesReadings,
+  setPesoPer,
+  setTotalReadings,
+  setHouseADataReadings
+} = houseSlice.actions
 
 export default houseSlice.reducer

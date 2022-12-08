@@ -9,9 +9,10 @@ const ResultTable = () => {
   const navigate = useNavigate()
   const store = useAppSelector((state) => state)
   const dispatch = useAppDispatch()
-  const { houses, pesoPer, totalReadings } = store.houses
+  const { houses, pesoPer, totalReadings, houseAData } = store.houses
   const { dueDate, startDate, endDate, billType, bill } = totalReadings
 
+  console.log({ houseAData })
   const confirmHandler = async () => {
     client
       .post("yearly-bills/", {

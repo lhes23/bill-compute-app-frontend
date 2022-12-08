@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { IHouseReading } from "interfaces"
 import {
   getAllHouses,
+  setHouseADataReadings,
   setHousesReadings,
   setPesoPer,
   setTotalReadings
@@ -18,7 +19,7 @@ const HouseForm = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { houses, tenants } = useAppSelector((state) => state)
-  const { allHouses, totalReadings } = houses
+  const { allHouses, totalReadings, houseAData } = houses
 
   useEffect(() => {
     dispatch(getAllHouses())
@@ -182,11 +183,11 @@ const HouseForm = () => {
             />
 
             <HouseComponent
-              house={houseA}
-              setHouse={setHouseA}
+              house={houseAData}
+              // setHouse={setHouseA}
               tenantName={getTenantName(getHouseId("House A")[0])[0]}
             />
-            <HouseComponent
+            {/* <HouseComponent
               house={houseB}
               setHouse={setHouseB}
               tenantName={getTenantName(getHouseId("House B")[0])[0]}
@@ -200,7 +201,7 @@ const HouseForm = () => {
               house={houseD}
               setHouse={setHouseD}
               tenantName={getTenantName(getHouseId("House D")[0])[0]}
-            />
+            /> */}
 
             <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
               <button

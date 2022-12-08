@@ -1,13 +1,21 @@
 import React from "react"
 import { IHouseReading } from "interfaces"
+import { useAppDispatch } from "store"
+import { setHouseADataReadings } from "redux/houseSlice"
 
 interface IProps {
   house: IHouseReading
-  setHouse: React.Dispatch<React.SetStateAction<IHouseReading>>
+  // setHouse: React.Dispatch<React.SetStateAction<IHouseReading>>
   tenantName: string
 }
 
-const HouseComponent = ({ house, setHouse, tenantName }: IProps) => {
+// const HouseComponent = ({ house, setHouse, tenantName }: IProps) => {
+const HouseComponent = ({ house, tenantName }: IProps) => {
+  const dispatch = useAppDispatch()
+  let setHouse: any
+  if (house.name === "House A") {
+    setHouse = setHouseADataReadings
+  }
   return (
     <>
       <h2 className="p-2">{house.name}</h2>
@@ -33,7 +41,12 @@ const HouseComponent = ({ house, setHouse, tenantName }: IProps) => {
             placeholder="Previous Reading"
             value={house.previous}
             onChange={(e) =>
-              setHouse({ ...house, previous: Number(e.target.value) })
+              dispatch(
+                setHouse({
+                  ...house,
+                  previous: Number(e.target.value)
+                })
+              )
             }
           />
           <label
@@ -52,11 +65,13 @@ const HouseComponent = ({ house, setHouse, tenantName }: IProps) => {
             placeholder="Present Reading"
             value={house.present}
             onChange={(e) =>
-              setHouse({
-                ...house,
-                present: Number(e.target.value),
-                tenant: tenantName
-              })
+              dispatch(
+                setHouse({
+                  ...house,
+                  present: Number(e.target.value),
+                  tenant: tenantName
+                })
+              )
             }
           />
           <label
