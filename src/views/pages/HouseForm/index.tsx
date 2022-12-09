@@ -1,7 +1,6 @@
 import React, { FormEvent, useState, useEffect } from "react"
 
 import { useNavigate } from "react-router-dom"
-import { IHouseReading, ITenant } from "interfaces"
 import {
   getAllHouses,
   setHouseADataReadings,
@@ -9,7 +8,6 @@ import {
   setHouseCDataReadings,
   setHouseDDataReadings,
   setHouseMainDataReadings,
-  setHousesReadings,
   setPesoPer,
   setTotalReadings
 } from "redux/houseSlice"
@@ -56,48 +54,6 @@ const HouseForm = () => {
       bill
     }
   }
-
-  const [houseA, setHouseA] = useState<IHouseReading>({
-    name: "House A",
-    house_id: 0,
-    tenant: "",
-    tenant_id: 0,
-    previous: 0,
-    present: 0
-  })
-
-  const [houseB, setHouseB] = useState<IHouseReading>({
-    name: "House B",
-    house_id: 0,
-    tenant: "",
-    tenant_id: 0,
-    previous: 0,
-    present: 0
-  })
-  const [houseC, setHouseC] = useState<IHouseReading>({
-    name: "House C",
-    house_id: 0,
-    tenant: "",
-    tenant_id: 0,
-    previous: 0,
-    present: 0
-  })
-  const [houseD, setHouseD] = useState<IHouseReading>({
-    name: "House D",
-    house_id: 0,
-    tenant: "",
-    tenant_id: 0,
-    previous: 0,
-    present: 0
-  })
-  const [houseMain, setHouseMain] = useState<IHouseReading>({
-    name: "Main",
-    house_id: 0,
-    tenant: "",
-    tenant_id: 0,
-    previous: 0,
-    present: 0
-  })
 
   const totalConsumption = totalReadings.present - totalReadings.previous
   const pesoper = Math.round(totalReadings.bill / totalConsumption)
@@ -187,52 +143,6 @@ const HouseForm = () => {
 
     // Save pesoPer on Redux
     dispatch(setPesoPer(pesoper))
-
-    // Save the Readings
-    dispatch(
-      setHousesReadings([
-        {
-          name: houseA.name,
-          tenant: houseA?.tenant,
-          previous: houseA.previous,
-          present: houseA.present,
-          consumption: houseAConsumption,
-          bill: houseAData.bill
-        },
-        {
-          name: houseB.name,
-          tenant: houseB?.tenant,
-          previous: houseB.previous,
-          present: houseB.present,
-          consumption: houseBConsumption,
-          bill: houseBData.bill
-        },
-        {
-          name: houseC.name,
-          tenant: houseC?.tenant,
-          previous: houseC.previous,
-          present: houseC.present,
-          consumption: houseCConsumption,
-          bill: houseCData.bill
-        },
-        {
-          name: houseD.name,
-          tenant: houseD?.tenant,
-          previous: houseD.previous,
-          present: houseD.present,
-          consumption: houseDConsumption,
-          bill: houseDData.bill
-        },
-        {
-          name: houseMain.name,
-          tenant: houseMain?.tenant,
-          previous: totalReadings.previous,
-          present: totalReadings.present,
-          consumption: houseMainConsumption,
-          bill: Number(houseMainBill).toFixed(2)
-        }
-      ])
-    )
 
     navigate("/result")
   }

@@ -10,7 +10,6 @@ const ResultTable = () => {
   const store = useAppSelector((state) => state)
   const dispatch = useAppDispatch()
   const {
-    houses,
     pesoPer,
     totalReadings,
     houseAData,
@@ -74,7 +73,6 @@ const ResultTable = () => {
   return (
     <>
       <h2 className="my-6 text-2xl font-semibold">Result</h2>
-      {/* {houses.map((house) => ( */}
       {housesData.map((house) => (
         <div
           key={house.name}
