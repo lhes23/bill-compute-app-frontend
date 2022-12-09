@@ -29,6 +29,8 @@ const ResultTable = () => {
     houseMainData
   ]
 
+  console.log(housesData)
+
   const confirmHandler = async () => {
     client
       .post("yearly-bills/", {

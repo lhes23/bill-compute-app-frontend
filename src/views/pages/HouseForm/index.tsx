@@ -169,7 +169,7 @@ const HouseForm = () => {
       setHouseMainDataReadings({
         ...houseMainData,
         consumption: houseMainConsumption,
-        bill: houseMainBill,
+        bill: Number(houseMainBill).toFixed(2),
         pesoper
       })
     )
