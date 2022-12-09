@@ -9,11 +9,25 @@ const ResultTable = () => {
   const navigate = useNavigate()
   const store = useAppSelector((state) => state)
   const dispatch = useAppDispatch()
-  const { houses, pesoPer, totalReadings, houseAData, houseBData } =
-    store.houses
+  const {
+    houses,
+    pesoPer,
+    totalReadings,
+    houseAData,
+    houseBData,
+    houseCData,
+    houseDData,
+    houseMainData
+  } = store.houses
   const { dueDate, startDate, endDate, billType, bill } = totalReadings
 
-  console.log({ houseAData, houseBData })
+  const housesData = [
+    houseAData,
+    houseBData,
+    houseCData,
+    houseDData,
+    houseMainData
+  ]
 
   const confirmHandler = async () => {
     client
@@ -58,7 +72,8 @@ const ResultTable = () => {
   return (
     <>
       <h2 className="my-6 text-2xl font-semibold">Result</h2>
-      {houses.map((house) => (
+      {/* {houses.map((house) => ( */}
+      {housesData.map((house) => (
         <div
           key={house.name}
           className="max-w-md mx-auto my-4 rounded-xl shadow-lg overflow-hidden md:max-w-2xl"

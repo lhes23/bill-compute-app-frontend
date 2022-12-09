@@ -91,7 +91,7 @@ const initialState: IInitialState = {
   houseBData: { ...initialHouseData, name: "House B" },
   houseCData: { ...initialHouseData, name: "House C" },
   houseDData: { ...initialHouseData, name: "House D" },
-  houseMainData: initialHouseData,
+  houseMainData: { ...initialHouseData, name: "Main", tenant: "Main" },
   pesoPer: 0,
   totalReadings: {
     name: "wholeHouse",
@@ -133,6 +133,9 @@ export const houseSlice = createSlice({
     },
     setHouseDDataReadings: (state, action) => {
       state.houseDData = action.payload
+    },
+    setHouseMainDataReadings: (state, action) => {
+      state.houseMainData = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -155,7 +158,8 @@ export const {
   setHouseADataReadings,
   setHouseBDataReadings,
   setHouseCDataReadings,
-  setHouseDDataReadings
+  setHouseDDataReadings,
+  setHouseMainDataReadings
 } = houseSlice.actions
 
 export default houseSlice.reducer

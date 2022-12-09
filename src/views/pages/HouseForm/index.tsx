@@ -6,24 +6,35 @@ import {
   getAllHouses,
   setHouseADataReadings,
   setHouseBDataReadings,
+  setHouseCDataReadings,
+  setHouseDDataReadings,
+  setHouseMainDataReadings,
   setHousesReadings,
   setPesoPer,
   setTotalReadings
 } from "redux/houseSlice"
-import HouseComponent from "./components/HouseComponent"
 import TotalReading from "./components/TotalReading"
 import PageLayout from "layouts/PageLayout"
 import { useAppDispatch, useAppSelector } from "store"
 import { getActiveTenants } from "redux/tenantSlice"
 import HouseAComponentForm from "./components/HouseAComponentForm"
 import HouseBComponentForm from "./components/HouseBComponentForm"
-import { GetHouseId, GetTenantName } from "./hooks/getDetails"
+import HouseCComponentForm from "./components/HouseCComponentForm"
+import HouseDComponentForm from "./components/HouseDComponentForm"
 
 const HouseForm = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { houses, tenants } = useAppSelector((state) => state)
-  const { allHouses, totalReadings, houseAData, houseBData } = houses
+  const {
+    allHouses,
+    totalReadings,
+    houseAData,
+    houseBData,
+    houseCData,
+    houseDData,
+    houseMainData
+  } = houses
 
   useEffect(() => {
     dispatch(getAllHouses())
@@ -34,14 +45,17 @@ const HouseForm = () => {
   const [startDateLocal, setStartDateLocal] = useState<Date>(new Date())
   const [endDateLocal, setEndDateLocal] = useState<Date>(new Date())
 
-  const getHouseId = (house: string) => {
-    return allHouses?.filter((h) => h.name === house).map((n) => n.id)
-  }
-
-  const getTenantName = (houseId: number) => {
-    return tenants.activeTenants
-      .filter((t) => t.house_id === houseId)
-      .map((n) => n.name)
+  const getBillsAndConsumptions = (
+    present: number,
+    previous: number,
+    pesoper: number
+  ) => {
+    const consumption = present - previous
+    const bill = consumption * pesoper
+    return {
+      consumption,
+      bill
+    }
   }
 
   const [houseA, setHouseA] = useState<IHouseReading>({
@@ -79,8 +93,8 @@ const HouseForm = () => {
   })
   const [houseMain, setHouseMain] = useState<IHouseReading>({
     name: "Main",
-    house_id: getHouseId("Main")[0],
-    tenant: getTenantName(getHouseId("Main")[0])[0],
+    house_id: 0,
+    tenant: "",
     tenant_id: 0,
     previous: 0,
     present: 0
@@ -92,43 +106,73 @@ const HouseForm = () => {
   const formHandler = async (e: FormEvent) => {
     e.preventDefault()
 
-    // const houseAConsumption = houseA.present - houseA.previous
-    // const houseABill = houseAConsumption * pesoper
-    const houseAConsumption = houseAData.present - houseAData.previous
-    const houseABill = houseAConsumption * pesoper
-    await dispatch(
-      setHouseADataReadings({
-        ...houseAData,
-        pesoper,
-        consumption: houseAConsumption,
-        bill: houseABill
-      })
+    const houseAConsumption = getBillsAndConsumptions(
+      houseAData.present,
+      houseAData.previous,
+      pesoper
     )
-
-    const houseBConsumption = houseBData.present - houseBData.previous
-    const houseBBill = houseBConsumption * pesoper
-    dispatch(
-      setHouseBDataReadings({
-        ...houseBData,
-        bill: houseBBill,
-        consumption: houseBConsumption,
-        pesoper
-      })
+    const houseBConsumption = getBillsAndConsumptions(
+      houseBData.present,
+      houseBData.previous,
+      pesoper
     )
-
-    const houseCConsumption = houseC.present - houseC.previous
-    const houseCBill = houseCConsumption * pesoper
-    const houseDConsumption = houseD.present - houseD.previous
-    const houseDBill = houseDConsumption * pesoper
+    const houseCConsumption = getBillsAndConsumptions(
+      houseCData.present,
+      houseCData.previous,
+      pesoper
+    )
+    const houseDConsumption = getBillsAndConsumptions(
+      houseDData.present,
+      houseDData.previous,
+      pesoper
+    )
 
     const houseMainConsumption =
       totalConsumption -
-      (houseAConsumption +
-        houseBConsumption +
-        houseCConsumption +
-        houseDConsumption)
+      (houseAData.consumption +
+        houseBData.consumption +
+        houseCData.consumption +
+        houseDData.consumption)
     const houseMainBill =
-      totalReadings.bill - (houseABill + houseBBill + houseCBill + houseDBill)
+      totalReadings.bill -
+      (houseAData.bill + houseBData.bill + houseCData.bill + houseDData.bill)
+
+    await dispatch(
+      setHouseADataReadings({
+        ...houseAData,
+        ...houseAConsumption,
+        pesoper
+      })
+    )
+    await dispatch(
+      setHouseBDataReadings({
+        ...houseBData,
+        ...houseBConsumption,
+        pesoper
+      })
+    )
+    await dispatch(
+      setHouseCDataReadings({
+        ...houseCData,
+        ...houseCConsumption,
+        pesoper
+      })
+    )
+    await dispatch(
+      setHouseDDataReadings({
+        ...houseDData,
+        ...houseDConsumption,
+        pesoper
+      })
+    )
+    await dispatch(
+      setHouseMainDataReadings({
+        ...houseMainData,
+        consumption: houseMainConsumption,
+        bill: houseMainBill,
+        pesoper
+      })
+    )
 
     // Save Dates on Redux
     dispatch(
@@ -152,7 +196,7 @@ const HouseForm = () => {
           previous: houseA.previous,
           present: houseA.present,
           consumption: houseAConsumption,
-          bill: houseABill
+          bill: houseAData.bill
         },
         {
           name: houseB.name,
@@ -160,7 +204,7 @@ const HouseForm = () => {
           previous: houseB.previous,
           present: houseB.present,
           consumption: houseBConsumption,
-          bill: houseBBill
+          bill: houseBData.bill
         },
         {
           name: houseC.name,
@@ -168,7 +212,7 @@ const HouseForm = () => {
           previous: houseC.previous,
           present: houseC.present,
           consumption: houseCConsumption,
-          bill: houseCBill
+          bill: houseCData.bill
         },
         {
           name: houseD.name,
@@ -176,7 +220,7 @@ const HouseForm = () => {
           previous: houseD.previous,
           present: houseD.present,
           consumption: houseDConsumption,
-          bill: houseDBill
+          bill: houseDData.bill
         },
         {
           name: houseMain.name,
@@ -208,22 +252,8 @@ const HouseForm = () => {
 
             <HouseAComponentForm />
             <HouseBComponentForm />
-
-            {/* <HouseComponent
-              house={houseB}
-              setHouse={setHouseB}
-              tenantName={getTenantName(getHouseId("House B")[0])[0]}
-            />
-            <HouseComponent
-              house={houseC}
-              setHouse={setHouseC}
-              tenantName={getTenantName(getHouseId("House C")[0])[0]}
-            />
-            <HouseComponent
-              house={houseD}
-              setHouse={setHouseD}
-              tenantName={getTenantName(getHouseId("House D")[0])[0]}
-            /> */}
+            <HouseCComponentForm />
+            <HouseDComponentForm />
 
             <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
               <button
