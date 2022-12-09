@@ -13,9 +13,15 @@ const TotalReading = () => {
   const { totalReadings } = useAppSelector((state) => state.houses)
   const dispatch = useAppDispatch()
 
-  const [dueDateLocal, setDueDateLocal] = useState<Date>(new Date())
-  const [startDateLocal, setStartDateLocal] = useState<Date>(new Date())
-  const [endDateLocal, setEndDateLocal] = useState<Date>(new Date())
+  const [dueDateLocal, setDueDateLocal] = useState<Date>(
+    new Date(totalReadings.dueDate)
+  )
+  const [startDateLocal, setStartDateLocal] = useState<Date>(
+    new Date(totalReadings.startDate)
+  )
+  const [endDateLocal, setEndDateLocal] = useState<Date>(
+    new Date(totalReadings.endDate)
+  )
 
   const formatDate = (myDate: Date) => {
     const options = {
