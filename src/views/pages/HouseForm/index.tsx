@@ -1,10 +1,11 @@
 import React, { FormEvent, useState, useEffect } from "react"
 
 import { useNavigate } from "react-router-dom"
-import { IHouseReading } from "interfaces"
+import { IHouseReading, ITenant } from "interfaces"
 import {
   getAllHouses,
   setHouseADataReadings,
+  setHouseBDataReadings,
   setHousesReadings,
   setPesoPer,
   setTotalReadings
@@ -14,12 +15,14 @@ import TotalReading from "./components/TotalReading"
 import PageLayout from "layouts/PageLayout"
 import { useAppDispatch, useAppSelector } from "store"
 import { getActiveTenants } from "redux/tenantSlice"
+import HouseAComponentForm from "./components/HouseAComponentForm"
+import HouseBComponentForm from "./components/HouseBComponentForm"
 
 const HouseForm = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { houses, tenants } = useAppSelector((state) => state)
-  const { allHouses, totalReadings, houseAData } = houses
+  const { allHouses, totalReadings, houseAData, houseBData } = houses
 
   useEffect(() => {
     dispatch(getAllHouses())
@@ -88,10 +91,30 @@ const HouseForm = () => {
   const formHandler = async (e: FormEvent) => {
     e.preventDefault()
 
-    const houseAConsumption = houseA.present - houseA.previous
+    // const houseAConsumption = houseA.present - houseA.previous
+    // const houseABill = houseAConsumption * pesoper
+    const houseAConsumption = houseAData.present - houseAData.previous
     const houseABill = houseAConsumption * pesoper
-    const houseBConsumption = houseB.present - houseB.previous
+    await dispatch(
+      setHouseADataReadings({
+        ...houseAData,
+        pesoper,
+        consumption: houseAConsumption,
+        bill: houseABill
+      })
+    )
+
+    const houseBConsumption = houseBData.present - houseBData.previous
     const houseBBill = houseBConsumption * pesoper
+    dispatch(
+      setHouseBDataReadings({
+        ...houseBData,
+        bill: houseBBill,
+        consumption: houseBConsumption,
+        pesoper
+      })
+    )
+
     const houseCConsumption = houseC.present - houseC.previous
     const houseCBill = houseCConsumption * pesoper
     const houseDConsumption = houseD.present - houseD.previous
@@ -182,11 +205,13 @@ const HouseForm = () => {
               setEndDateLocal={setEndDateLocal}
             />
 
-            <HouseComponent
-              house={houseAData}
-              // setHouse={setHouseA}
+            <HouseAComponentForm
               tenantName={getTenantName(getHouseId("House A")[0])[0]}
             />
+            <HouseBComponentForm
+              tenantName={getTenantName(getHouseId("House B")[0])[0]}
+            />
+
             {/* <HouseComponent
               house={houseB}
               setHouse={setHouseB}

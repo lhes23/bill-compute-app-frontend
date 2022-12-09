@@ -1,23 +1,23 @@
 import React from "react"
-import { setHouseADataReadings } from "redux/houseSlice"
+import { setHouseBDataReadings } from "redux/houseSlice"
 import { useAppDispatch, useAppSelector } from "store"
 import HouseComponent from "./HouseComponent"
 
-const HouseAComponentForm = ({ tenantName }: { tenantName: string }) => {
+const HouseBComponentForm = ({ tenantName }: { tenantName: string }) => {
   const dispatch = useAppDispatch()
-  const { houseAData } = useAppSelector((state) => state.houses)
+  const { houseBData } = useAppSelector((state) => state.houses)
 
   const previousChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
     dispatch(
-      setHouseADataReadings({
-        ...houseAData,
+      setHouseBDataReadings({
+        ...houseBData,
         previous: Number(e.target.value)
       })
     )
   const presentChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
     dispatch(
-      setHouseADataReadings({
-        ...houseAData,
+      setHouseBDataReadings({
+        ...houseBData,
         present: Number(e.target.value),
         tenant: tenantName
       })
@@ -25,14 +25,14 @@ const HouseAComponentForm = ({ tenantName }: { tenantName: string }) => {
 
   return (
     <>
-      <HouseComponent houseName={houseAData.name} tenantName={tenantName}>
+      <HouseComponent houseName={houseBData.name} tenantName={tenantName}>
         <div className="relative">
           <input
             type="number"
             id="previous_reading"
             className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder="Previous Reading"
-            value={houseAData.previous}
+            value={houseBData.previous}
             onChange={previousChangeHandler}
           />
           <label
@@ -49,7 +49,7 @@ const HouseAComponentForm = ({ tenantName }: { tenantName: string }) => {
             id="present_reading"
             className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder="Present Reading"
-            value={houseAData.present}
+            value={houseBData.present}
             onChange={presentChangeHandler}
           />
           <label
@@ -64,4 +64,4 @@ const HouseAComponentForm = ({ tenantName }: { tenantName: string }) => {
   )
 }
 
-export default HouseAComponentForm
+export default HouseBComponentForm
