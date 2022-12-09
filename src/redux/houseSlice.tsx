@@ -136,6 +136,15 @@ export const houseSlice = createSlice({
     },
     setHouseMainDataReadings: (state, action) => {
       state.houseMainData = action.payload
+    },
+    setTotalReadingsDueDate: (state, action) => {
+      state.totalReadings.dueDate = action.payload
+    },
+    setTotalReadingsStartDate: (state, action) => {
+      state.totalReadings.startDate = action.payload
+    },
+    setTotalReadingsEndDate: (state, action) => {
+      state.totalReadings.endDate = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -159,7 +168,10 @@ export const {
   setHouseBDataReadings,
   setHouseCDataReadings,
   setHouseDDataReadings,
-  setHouseMainDataReadings
+  setHouseMainDataReadings,
+  setTotalReadingsDueDate,
+  setTotalReadingsStartDate,
+  setTotalReadingsEndDate
 } = houseSlice.actions
 
 export default houseSlice.reducer

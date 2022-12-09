@@ -1,8 +1,7 @@
 import React from "react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "store"
+import { useAppDispatch, useAppSelector } from "store"
 import { setTotalReadings } from "redux/houseSlice"
 
 interface IProps {
@@ -22,8 +21,8 @@ const TotalReading = ({
   endDateLocal,
   setEndDateLocal
 }: IProps) => {
-  const { totalReadings } = useSelector((state: RootState) => state.houses)
-  const dispatch = useDispatch()
+  const { totalReadings } = useAppSelector((state) => state.houses)
+  const dispatch = useAppDispatch()
 
   return (
     <>
