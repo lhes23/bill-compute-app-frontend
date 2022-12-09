@@ -38,9 +38,9 @@ const HouseForm = () => {
     dispatch(getActiveTenants())
   }, [dispatch])
 
-  const [dueDateLocal, setDueDateLocal] = useState<Date>(new Date())
-  const [startDateLocal, setStartDateLocal] = useState<Date>(new Date())
-  const [endDateLocal, setEndDateLocal] = useState<Date>(new Date())
+  // const [dueDateLocal, setDueDateLocal] = useState<Date>(new Date())
+  // const [startDateLocal, setStartDateLocal] = useState<Date>(new Date())
+  // const [endDateLocal, setEndDateLocal] = useState<Date>(new Date())
 
   const getBillsAndConsumptions = (
     present: number,
@@ -132,14 +132,14 @@ const HouseForm = () => {
     )
 
     // Save Dates on Redux
-    dispatch(
-      setTotalReadings({
-        ...totalReadings,
-        dueDate: dueDateLocal.toDateString(),
-        startDate: startDateLocal.toDateString(),
-        endDate: endDateLocal.toDateString()
-      })
-    )
+    // dispatch(
+    //   setTotalReadings({
+    //     ...totalReadings,
+    //     dueDate: dueDateLocal.toDateString(),
+    //     startDate: startDateLocal.toDateString(),
+    //     endDate: endDateLocal.toDateString()
+    //   })
+    // )
 
     // Save pesoPer on Redux
     dispatch(setPesoPer(pesoper))
@@ -153,12 +153,12 @@ const HouseForm = () => {
         <div className="flex justify-center">
           <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md md:w-[50vw]">
             <TotalReading
-              dueDateLocal={dueDateLocal}
-              setDueDateLocal={setDueDateLocal}
-              startDateLocal={startDateLocal}
-              setStartDateLocal={setStartDateLocal}
-              endDateLocal={endDateLocal}
-              setEndDateLocal={setEndDateLocal}
+            // dueDateLocal={dueDateLocal}
+            // setDueDateLocal={setDueDateLocal}
+            // startDateLocal={startDateLocal}
+            // setStartDateLocal={setStartDateLocal}
+            // endDateLocal={endDateLocal}
+            // setEndDateLocal={setEndDateLocal}
             />
 
             <HouseAComponentForm />

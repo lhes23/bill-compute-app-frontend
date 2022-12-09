@@ -1,8 +1,13 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { useAppDispatch, useAppSelector } from "store"
-import { setTotalReadings } from "redux/houseSlice"
+import {
+  setTotalReadings,
+  setTotalReadingsDueDate,
+  setTotalReadingsEndDate,
+  setTotalReadingsStartDate
+} from "redux/houseSlice"
 
 interface IProps {
   dueDateLocal: Date
@@ -13,16 +18,35 @@ interface IProps {
   setEndDateLocal: React.Dispatch<React.SetStateAction<Date>>
 }
 
-const TotalReading = ({
-  dueDateLocal,
-  setDueDateLocal,
-  startDateLocal,
-  setStartDateLocal,
-  endDateLocal,
-  setEndDateLocal
-}: IProps) => {
+// const TotalReading = ({
+//   dueDateLocal,
+//   setDueDateLocal,
+//   startDateLocal,
+//   setStartDateLocal,
+//   endDateLocal,
+//   setEndDateLocal
+// }: IProps) => {
+const TotalReading = () => {
   const { totalReadings } = useAppSelector((state) => state.houses)
   const dispatch = useAppDispatch()
+
+  const [dueDateLocal, setDueDateLocal] = useState<Date>(new Date())
+  const [startDateLocal, setStartDateLocal] = useState<Date>(new Date())
+  const [endDateLocal, setEndDateLocal] = useState<Date>(new Date())
+
+  const formatDate = (myDate: Date) => {
+    const options = {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    } as const
+    return myDate.toLocaleDateString("en-US", options)
+  }
+
+  useEffect(() => {
+    console.log({ totalReadings })
+  }, [totalReadings])
 
   return (
     <>
@@ -33,7 +57,13 @@ const TotalReading = ({
           </label>
           <DatePicker
             selected={dueDateLocal}
-            onChange={(date: Date) => setDueDateLocal(date)}
+            // onChange={(date: Date) => setDueDateLocal(date)}
+            // selected={new Date()}
+            onChange={(date: Date) => {
+              setDueDateLocal(date)
+              const newDate = formatDate(date)
+              dispatch(setTotalReadingsDueDate(newDate))
+            }}
             className={styles.input}
           />
         </div>
@@ -46,11 +76,21 @@ const TotalReading = ({
             </span>
           </label>
           <DatePicker
-            selected={startDateLocal}
             selectsStart
+            selected={startDateLocal}
             startDate={startDateLocal}
             endDate={endDateLocal}
-            onChange={(date: Date) => setStartDateLocal(date)}
+            onChange={(date: Date) => {
+              setStartDateLocal(date)
+              const newDate = formatDate(date)
+              dispatch(setTotalReadingsStartDate(newDate))
+            }}
+            // selected={new Date(totalReadings.startDate)}
+            // startDate={new Date(totalReadings.startDate)}
+            // endDate={new Date(totalReadings.endDate)}
+            // onChange={(date: Date) =>
+            //   dispatch(setTotalReadingsStartDate(date.toString()))
+            // }
             className={styles.input}
           />
         </div>
@@ -61,12 +101,23 @@ const TotalReading = ({
             </span>
           </label>
           <DatePicker
-            selected={endDateLocal}
             selectsEnd
+            selected={endDateLocal}
             startDate={startDateLocal}
             endDate={endDateLocal}
             minDate={startDateLocal}
-            onChange={(date: Date) => setEndDateLocal(date)}
+            onChange={(date: Date) => {
+              setEndDateLocal(date)
+              const newDate = formatDate(date)
+              dispatch(setTotalReadingsEndDate(newDate))
+            }}
+            // selected={new Date(totalReadings.endDate)}
+            // startDate={new Date(totalReadings.startDate)}
+            // endDate={new Date(totalReadings.endDate)}
+            // minDate={new Date(totalReadings.startDate)}
+            // onChange={(date: Date) =>
+            //   dispatch(setTotalReadingsEndDate(date.toString()))
+            // }
             className={styles.input}
           />
         </div>
