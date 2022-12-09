@@ -18,6 +18,7 @@ import HouseAComponentForm from "./components/HouseAComponentForm"
 import HouseBComponentForm from "./components/HouseBComponentForm"
 import HouseCComponentForm from "./components/HouseCComponentForm"
 import HouseDComponentForm from "./components/HouseDComponentForm"
+import { getBillsAndConsumptions } from "./hooks/getDetails"
 
 const HouseForm = () => {
   const navigate = useNavigate()
@@ -36,19 +37,6 @@ const HouseForm = () => {
     dispatch(getAllHouses())
     dispatch(getActiveTenants())
   }, [dispatch])
-
-  const getBillsAndConsumptions = (
-    present: number,
-    previous: number,
-    pesoper: number
-  ) => {
-    const consumption = present - previous
-    const bill = consumption * pesoper
-    return {
-      consumption,
-      bill
-    }
-  }
 
   const totalConsumption = totalReadings.present - totalReadings.previous
   const pesoper = Math.round(totalReadings.bill / totalConsumption)

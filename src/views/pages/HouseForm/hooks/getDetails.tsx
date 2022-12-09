@@ -11,3 +11,16 @@ export const GetTenantName = (houseId: number) => {
     .filter((t) => t.house_id === houseId)
     .map((n) => n.name)[0]
 }
+
+export const getBillsAndConsumptions = (
+  present: number,
+  previous: number,
+  pesoper: number
+) => {
+  const consumption = present - previous
+  const bill = consumption * pesoper
+  return {
+    consumption,
+    bill
+  }
+}
