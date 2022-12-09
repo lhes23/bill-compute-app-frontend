@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "store"
 import { getActiveTenants } from "redux/tenantSlice"
 import HouseAComponentForm from "./components/HouseAComponentForm"
 import HouseBComponentForm from "./components/HouseBComponentForm"
+import { GetHouseId, GetTenantName } from "./hooks/getDetails"
 
 const HouseForm = () => {
   const navigate = useNavigate()
@@ -205,12 +206,8 @@ const HouseForm = () => {
               setEndDateLocal={setEndDateLocal}
             />
 
-            <HouseAComponentForm
-              tenantName={getTenantName(getHouseId("House A")[0])[0]}
-            />
-            <HouseBComponentForm
-              tenantName={getTenantName(getHouseId("House B")[0])[0]}
-            />
+            <HouseAComponentForm />
+            <HouseBComponentForm />
 
             {/* <HouseComponent
               house={houseB}

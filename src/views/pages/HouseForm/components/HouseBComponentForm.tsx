@@ -1,11 +1,14 @@
 import React from "react"
 import { setHouseBDataReadings } from "redux/houseSlice"
 import { useAppDispatch, useAppSelector } from "store"
+import { GetHouseId, GetTenantName } from "../hooks/getDetails"
 import HouseComponent from "./HouseComponent"
 
-const HouseBComponentForm = ({ tenantName }: { tenantName: string }) => {
+const HouseBComponentForm = () => {
   const dispatch = useAppDispatch()
   const { houseBData } = useAppSelector((state) => state.houses)
+  const house_id = GetHouseId(houseBData.name)
+  const tenant = GetTenantName(house_id)
 
   const previousChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
     dispatch(
@@ -19,7 +22,8 @@ const HouseBComponentForm = ({ tenantName }: { tenantName: string }) => {
       setHouseBDataReadings({
         ...houseBData,
         present: Number(e.target.value),
-        tenant: tenantName
+        house_id,
+        tenant
       })
     )
 
@@ -27,7 +31,7 @@ const HouseBComponentForm = ({ tenantName }: { tenantName: string }) => {
     <>
       <HouseComponent
         house={houseBData}
-        tenantName={tenantName}
+        tenantName={tenant}
         previousChangeHandler={previousChangeHandler}
         presentChangeHandler={presentChangeHandler}
       />
