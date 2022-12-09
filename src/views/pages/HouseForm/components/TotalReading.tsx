@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { useAppDispatch, useAppSelector } from "store"
@@ -38,7 +38,7 @@ const TotalReading = () => {
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div className="relative">
           <label className={styles.label}>
-            <span className="text-gray-700 dark:text-gray-400">Due Date</span>
+            <span className={styles.labelSpan}>Due Date</span>
           </label>
           <DatePicker
             selected={dueDateLocal}
@@ -54,9 +54,7 @@ const TotalReading = () => {
       <div className="grid grid-cols-2 gap-2 md:gap-4 my-4">
         <div className="relative">
           <label className={styles.label}>
-            <span className="text-gray-700 dark:text-gray-400 z-10">
-              Start Date Covered
-            </span>
+            <span className={styles.labelSpan}>Start Date Covered</span>
           </label>
           <DatePicker
             selectsStart
@@ -73,9 +71,7 @@ const TotalReading = () => {
         </div>
         <div className="relative">
           <label className={styles.label}>
-            <span className="text-gray-700 dark:text-gray-400 z-10">
-              End Date Covered
-            </span>
+            <span className={styles.labelSpan}>End Date Covered</span>
           </label>
           <DatePicker
             selectsEnd
@@ -94,7 +90,7 @@ const TotalReading = () => {
       </div>
 
       <div className="mt-4 text-sm">
-        <span className="text-gray-700 dark:text-gray-400">Bill Type</span>
+        <span className={styles.labelSpan}>Bill Type</span>
         <div className="mt-2 grid grid-cols-2 gap-2 md:gap-4">
           <label className="inline-flex items-center text-gray-600 dark:text-gray-400">
             <input
@@ -140,9 +136,7 @@ const TotalReading = () => {
       <div className="grid grid-cols-2 gap-2 md:gap-4 w-full">
         <div className="relative">
           <label className={styles.label}>
-            <span className="text-gray-700 dark:text-gray-400 z-0">
-              Previous Reading
-            </span>
+            <span className={styles.labelSpan}>Previous Reading</span>
           </label>
 
           <input
@@ -163,9 +157,7 @@ const TotalReading = () => {
         </div>
         <div className="relative">
           <label className={styles.label}>
-            <span className="text-gray-700 dark:text-gray-400 z-0">
-              Present Reading
-            </span>
+            <span className={styles.labelSpan}>Present Reading</span>
           </label>
 
           <input
@@ -216,6 +208,7 @@ const TotalReading = () => {
 }
 
 const styles = {
+  labelSpan: "text-gray-700 dark:text-gray-400 z-0",
   input:
     "block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer",
   label:
