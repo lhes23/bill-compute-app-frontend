@@ -9,23 +9,6 @@ import {
   setTotalReadingsStartDate
 } from "redux/houseSlice"
 
-interface IProps {
-  dueDateLocal: Date
-  setDueDateLocal: React.Dispatch<React.SetStateAction<Date>>
-  startDateLocal: Date
-  setStartDateLocal: React.Dispatch<React.SetStateAction<Date>>
-  endDateLocal: Date
-  setEndDateLocal: React.Dispatch<React.SetStateAction<Date>>
-}
-
-// const TotalReading = ({
-//   dueDateLocal,
-//   setDueDateLocal,
-//   startDateLocal,
-//   setStartDateLocal,
-//   endDateLocal,
-//   setEndDateLocal
-// }: IProps) => {
 const TotalReading = () => {
   const { totalReadings } = useAppSelector((state) => state.houses)
   const dispatch = useAppDispatch()
@@ -44,10 +27,6 @@ const TotalReading = () => {
     return myDate.toLocaleDateString("en-US", options)
   }
 
-  useEffect(() => {
-    console.log({ totalReadings })
-  }, [totalReadings])
-
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2">
@@ -57,8 +36,6 @@ const TotalReading = () => {
           </label>
           <DatePicker
             selected={dueDateLocal}
-            // onChange={(date: Date) => setDueDateLocal(date)}
-            // selected={new Date()}
             onChange={(date: Date) => {
               setDueDateLocal(date)
               const newDate = formatDate(date)
@@ -85,12 +62,6 @@ const TotalReading = () => {
               const newDate = formatDate(date)
               dispatch(setTotalReadingsStartDate(newDate))
             }}
-            // selected={new Date(totalReadings.startDate)}
-            // startDate={new Date(totalReadings.startDate)}
-            // endDate={new Date(totalReadings.endDate)}
-            // onChange={(date: Date) =>
-            //   dispatch(setTotalReadingsStartDate(date.toString()))
-            // }
             className={styles.input}
           />
         </div>
@@ -111,13 +82,6 @@ const TotalReading = () => {
               const newDate = formatDate(date)
               dispatch(setTotalReadingsEndDate(newDate))
             }}
-            // selected={new Date(totalReadings.endDate)}
-            // startDate={new Date(totalReadings.startDate)}
-            // endDate={new Date(totalReadings.endDate)}
-            // minDate={new Date(totalReadings.startDate)}
-            // onChange={(date: Date) =>
-            //   dispatch(setTotalReadingsEndDate(date.toString()))
-            // }
             className={styles.input}
           />
         </div>

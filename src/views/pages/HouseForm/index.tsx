@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useEffect } from "react"
+import React, { FormEvent, useEffect } from "react"
 
 import { useNavigate } from "react-router-dom"
 import {
@@ -8,8 +8,7 @@ import {
   setHouseCDataReadings,
   setHouseDDataReadings,
   setHouseMainDataReadings,
-  setPesoPer,
-  setTotalReadings
+  setPesoPer
 } from "redux/houseSlice"
 import TotalReading from "./components/TotalReading"
 import PageLayout from "layouts/PageLayout"
@@ -37,10 +36,6 @@ const HouseForm = () => {
     dispatch(getAllHouses())
     dispatch(getActiveTenants())
   }, [dispatch])
-
-  // const [dueDateLocal, setDueDateLocal] = useState<Date>(new Date())
-  // const [startDateLocal, setStartDateLocal] = useState<Date>(new Date())
-  // const [endDateLocal, setEndDateLocal] = useState<Date>(new Date())
 
   const getBillsAndConsumptions = (
     present: number,
@@ -131,16 +126,6 @@ const HouseForm = () => {
       })
     )
 
-    // Save Dates on Redux
-    // dispatch(
-    //   setTotalReadings({
-    //     ...totalReadings,
-    //     dueDate: dueDateLocal.toDateString(),
-    //     startDate: startDateLocal.toDateString(),
-    //     endDate: endDateLocal.toDateString()
-    //   })
-    // )
-
     // Save pesoPer on Redux
     dispatch(setPesoPer(pesoper))
 
@@ -152,20 +137,11 @@ const HouseForm = () => {
       <PageLayout title="Add a Reading">
         <div className="flex justify-center">
           <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md md:w-[50vw]">
-            <TotalReading
-            // dueDateLocal={dueDateLocal}
-            // setDueDateLocal={setDueDateLocal}
-            // startDateLocal={startDateLocal}
-            // setStartDateLocal={setStartDateLocal}
-            // endDateLocal={endDateLocal}
-            // setEndDateLocal={setEndDateLocal}
-            />
-
+            <TotalReading />
             <HouseAComponentForm />
             <HouseBComponentForm />
             <HouseCComponentForm />
             <HouseDComponentForm />
-
             <div className="px-4 py-3 text-right sm:px-6 flex justify-center">
               <button
                 type="submit"
