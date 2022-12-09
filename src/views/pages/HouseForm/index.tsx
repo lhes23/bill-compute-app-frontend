@@ -25,9 +25,8 @@ import HouseDComponentForm from "./components/HouseDComponentForm"
 const HouseForm = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { houses, tenants } = useAppSelector((state) => state)
+  const { houses } = useAppSelector((state) => state)
   const {
-    allHouses,
     totalReadings,
     houseAData,
     houseBData,
@@ -168,6 +167,8 @@ const HouseForm = () => {
     await dispatch(
       setHouseMainDataReadings({
         ...houseMainData,
+        present: totalReadings.present,
+        previous: totalReadings.previous,
         consumption: houseMainConsumption,
         bill: Number(houseMainBill).toFixed(2),
         pesoper
