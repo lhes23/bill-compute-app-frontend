@@ -14,13 +14,13 @@ const TotalReading = () => {
   const dispatch = useAppDispatch()
 
   const [dueDateLocal, setDueDateLocal] = useState<Date>(
-    new Date(totalReadings.dueDate)
+    totalReadings.dueDate ? new Date(totalReadings.dueDate) : new Date()
   )
   const [startDateLocal, setStartDateLocal] = useState<Date>(
-    new Date(totalReadings.startDate)
+    totalReadings.startDate ? new Date(totalReadings.startDate) : new Date()
   )
   const [endDateLocal, setEndDateLocal] = useState<Date>(
-    new Date(totalReadings.endDate)
+    totalReadings.endDate ? new Date(totalReadings.endDate) : new Date()
   )
 
   const formatDate = (myDate: Date) => {
