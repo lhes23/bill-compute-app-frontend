@@ -1,8 +1,7 @@
 import axios, { AxiosInstance } from "axios"
 
 const client: AxiosInstance = axios.create({
-  // baseURL: "http://localhost:8000/api/"
-  baseURL: "http://192.168.100.30:8000/api/"
+  baseURL: `http://${process.env.REACT_APP_LOCAL_HOST}:${process.env.REACT_APP_BACK_PORT}/api/`
 })
 
 export default client
