@@ -68,6 +68,7 @@ const ResultTable = () => {
       .catch((err) => console.log(err))
   }
 
+  console.log({ housesData, houseMainData })
   return (
     <>
       <h2 className="my-6 text-2xl font-semibold">Result</h2>

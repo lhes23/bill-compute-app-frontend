@@ -12,8 +12,6 @@ import ActiveReadingsTable from "./components/ActiveReadings"
 import { IDataSets } from "interfaces"
 
 const Dashboard = () => {
-  const [electricData, setElectricData] = useState<IDataSets[]>([])
-  const [waterData, setWaterData] = useState<IDataSets[]>([])
   const dispatch = useAppDispatch()
   const { allHouses, allYearlyBills } = useAppSelector((state) => state.houses)
 
@@ -21,28 +19,6 @@ const Dashboard = () => {
     dispatch(getAllHouses())
     dispatch(getAllYearlyBills())
   }, [dispatch])
-
-  useEffect(() => {
-    client
-      .get("yearly-bills/")
-      .then((res: AxiosResponse) => {
-        const electric = res.data
-          .filter((e: any) => e.bill_type === "electric")
-          .map((c: any) => c.bill)
-        setElectricData(electric)
-      })
-      .catch((err: AxiosError) => console.log(err))
-
-    client
-      .get("yearly-bills/")
-      .then((res: AxiosResponse) => {
-        const water = res.data
-          .filter((e: any) => e.bill_type === "water")
-          .map((c: any) => c.bill)
-        setWaterData(water)
-      })
-      .catch((err: AxiosError) => console.log(err))
-  }, [])
 
   return (
     <>
