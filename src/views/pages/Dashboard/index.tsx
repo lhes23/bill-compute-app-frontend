@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import HouseCard from "./components/HouseCard"
 import AreaChart from "./components/AreaChart"
 import TenantTable from "./components/TenantTable"
-import client from "axiosClient/client"
-import { AxiosError, AxiosResponse } from "axios"
 import PageLayout from "layouts/PageLayout"
 import TotalHouseReadings from "./components/TotalHouseReadings"
 import { getAllHouses, getAllYearlyBills } from "redux/houseSlice"
 import { useAppDispatch, useAppSelector } from "store"
 import ActiveReadingsTable from "./components/ActiveReadings"
-import { IDataSets } from "interfaces"
 
 const Dashboard = () => {
   const dispatch = useAppDispatch()
