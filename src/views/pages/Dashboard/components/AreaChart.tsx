@@ -1,5 +1,5 @@
 import React from "react"
-import { IDataSets, months } from "interfaces"
+import { IDataSets } from "interfaces"
 
 import {
   Chart as ChartJS,
@@ -42,13 +42,11 @@ const AreaChart = ({
   fillColor: string
 }) => {
   const data = {
-    // labels: months,
     labels: datasets.map((m) => m.month),
     datasets: [
       {
         fill: true,
         label,
-        // data: datasets,
         data: datasets.map((m) => m.bill),
         borderColor: color,
         backgroundColor: fillColor
